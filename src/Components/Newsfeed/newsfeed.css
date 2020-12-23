@@ -1,0 +1,66 @@
+.right-side{
+    margin-left: 10%;
+    border: 2px solid #f2f3f5;
+    border-radius: .5rem;
+    border-top-left-radius: 0;
+}
+.feedtime{
+    float: right;
+    padding: 1px;
+}
+.feedmenu{
+    float: right;
+    padding: 1px;
+}
+.feedname{
+    font-size: 14px;
+}
+.feedtxt{
+    font-size: 15.8px;
+    word-wrap: break-word;
+}
+
+.feed-pp{
+    z-index: 100;
+    left: 35%;
+    bottom: 0;
+    height: 120px;
+    padding: 6px;
+    font-size: 25px;
+}
+.unf33lke{
+    animation: unlike 400ms linear;
+}
+
+.f33lke{
+    animation: like 500ms linear;
+}
+
+
+
+
+
+@keyframes like{
+    0% {
+        transform: scale(0.5);
+
+    }
+    50% {
+        transform: scale(1.7);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes unlike{
+    0% {
+        transform: scale(0.5);
+
+    }
+    50% {
+        transform: scale(1.7);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

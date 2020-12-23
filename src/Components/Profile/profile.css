@@ -1,0 +1,55 @@
+/* profile image */
+.profile-cover{
+    height: 300px;
+    border-bottom-right-radius: 20px;
+}
+.profile-image{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+.profile-card{
+    position: relative;
+    top: -29px;
+    right: 0;
+}
+
+.main{
+    display:block;
+    position:relative;
+    width: 980px;
+    margin: 0 auto;
+}
+.cover{
+    display:block;
+    position:relative;
+    height:437px;
+    overflow:hidden;
+    z-index:1;
+}
+.cover img{
+   max-width:100%;
+    z-index:1;
+}
+.profile{
+   display:block;
+    position:relative;
+    width:200px;
+    height:272px;
+    margin: -114px 20px 10px 19px;
+    z-index:8;
+}
+.profile img{
+   max-width:100%;
+    z-index:8;
+}
+.followbt{
+    display:block;
+    position: absolute;
+    top: 250px;
+    right: 40%;
+    
+    z-index:8;
+}

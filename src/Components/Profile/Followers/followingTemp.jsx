@@ -1,0 +1,108 @@
+import Avatar from 'antd/lib/avatar/avatar'
+import React, { useState,useEffect } from 'react'
+import Followbtn from '../../Follow/followbtn.jsx'
+import {Link} from 'react-router-dom'
+
+const Following = ({follow_to,loggedIn,follow_type}) =>{
+  const [userDetail,setUserDt] = useState([])
+  const [PageDetails,setPageDt] = useState([])
+
+  useEffect(()=>{
+    UserDetails()
+    pageData()
+  })
+      //GEt all user additional info
+      const UserDetails = async()=>{
+        const FetchAllDetails = await fetch(`http://still-cove-26148.herokuapp.com/Authentication/by_id/${follow_to}`)
+          const response = await FetchAllDetails.json()
+          if (response.profiler) {
+              setUserDt(response.profiler)
+            }
+        }
+        //GEt all data info for page post
+   const pageData = async()=>{
+      const FetchAllDetails = await fetch(`http://still-cove-26148.herokuapp.com/Page/getD/${follow_to}`)
+      const response = await FetchAllDetails.json()
+      if(response.data){
+        setPageDt(response.data)
+      }
+    }
+console.log(follow_type)
+  return (
+    <article className="center mv3 b--black-10">
+      {
+        follow_to ?
+          <main class="mw6 center">
+            {
+              follow_type === 'people' ?
+                <article class="dt w-100 bb b--black-05 pb2 mt2" >
+                  <a href={`${userDetail.username}.pal`}>
+                 {
+                    userDetail.profileimg ?
+                      <Avatar size='large' src={userDetail.profileimg} />
+                      :
+                      <Avatar size='large' />
+                  }
+                  <div class="dtc v-mid pl3 tl">
+                    <h1 class="f6 f5-ns fw4 lh-title mv0 tl  f-name">{userDetail.fullname}</h1>
+                    {userDetail.profession ?
+                      <h2 class="f6 fw4 mt0 mb0  f-name2">#{userDetail.profession[0].skill}</h2>
+                      : null
+                    }
+
+                  </div>
+                 </a>
+
+                  <div class="dtc v-mid">
+                    <div class="w-100 tr">
+                      {
+                        loggedIn === follow_to ?
+                          null
+                          :
+                          <Followbtn userid={userDetail._id} />
+                      }
+
+                    </div>
+                  </div>
+                </article>
+                :
+                follow_type === 'page' ?
+                <article class="dt w-100 bb b--black-05 pb2 mt2">
+                 <a  href={`${PageDetails.address}.pal`}>
+                 {
+                    PageDetails.profileImg ?
+                      <Avatar size='large' src={PageDetails.profileImg} />
+                      :
+                      <Avatar size='large' />
+                  }
+                  <div class="dtc v-mid pl3 tl ">
+                    <h1 class="f6 f5-ns fw4 lh-title mv0 tl f-name">{PageDetails.name}</h1>
+                   
+                      <h2 class="f6 fw4 mt0 mb0 f-name2">#{PageDetails.desc}</h2>
+                  </div>
+                 </a>
+
+                  <div class="dtc v-mid">
+                    <div class="w-100 tr">
+                      {
+                        loggedIn === follow_to ?
+                          null
+                          :
+                          <Followbtn userid={PageDetails._id} />
+                      }
+
+                    </div>
+                  </div>
+                </article>
+                :
+                null
+            }
+
+          </main>
+          : null
+      }
+
+    </article>
+  )
+}
+export default Following 
