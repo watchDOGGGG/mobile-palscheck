@@ -28,7 +28,7 @@ class NewsFeed extends React.Component{
         
         return(
 
-                <article class="newfeed--3-art center br4 pa3 pa4-ns ba b--black-10">
+                <article class="newfeed--3-art center  b--black-10">
                 <Tabs defaultActiveKey="1">
                     <TabPane tab="palsFeed" key="1">
                         <PagePostPannel

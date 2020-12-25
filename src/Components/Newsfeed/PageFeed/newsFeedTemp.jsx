@@ -206,7 +206,7 @@ class NewsFeedTemp extends React.Component {
                        </div>
                        </a>
                         {/* comment like icon */} 
-                        <div className="commetLike mt4">
+                        <div className="commetLike mt4  ml3 mr3 center w-70">
                         <Row gutter={16}>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
                                 <Reaction

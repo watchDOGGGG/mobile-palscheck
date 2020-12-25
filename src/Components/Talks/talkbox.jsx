@@ -35,8 +35,8 @@ class TalkBox extends React.Component{
         const {error} = this.state
         return(
            <>
-            <div id="chat-container">
-                <div className="center fixed bottom-0" style={{width:'35%'}}>
+            <div id="chat-container w-100">
+                <div className="chat-box center fixed bottom-0 w-100">
                     <ContentEditable
             innerRef={this.contentEditable}
             html={this.state.html} // innerHTML of the editable div

@@ -28,7 +28,7 @@ class Notifications extends React.Component{
         return(
             <div>
                 {/* profileNewsfeed */}
-                <div className="center newfeed--3-art w-60 br3 pa2">
+                <div className="center newfeed--3-art br3 pa2">
                    <Divider>
                         <span className="blue">Notifications</span>
                     </Divider>

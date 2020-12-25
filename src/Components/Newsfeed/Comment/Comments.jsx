@@ -7,6 +7,8 @@ import ContentEditable from 'react-contenteditable'
 import CommentCrd from './commentCrd'
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+const localLink = 'http://localhost:4000'
+const SeverLink = 'https://still-cove-26148.herokuapp.com'
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 class Comments extends React.Component{
@@ -23,10 +25,14 @@ class Comments extends React.Component{
 
     
     componentDidUpdate(){
-      setInterval(() => {
-        this.getAllcomment()
-      }, 1000);
+      try {
+        setInterval(() => {
+          // this.getAllcomment()
+        }, 1000);
+          
+      } catch (error) {
         
+      }
         
     }
   
@@ -69,10 +75,14 @@ class Comments extends React.Component{
       }
 
        getAllcomment = async()=>{
-        const fetchAll = await fetch(`https://still-cove-26148.herokuapp.com/Feed/getAllcomments/${this.props.feed_id}/?limit=4`)
+        try {
+          const fetchAll = await fetch(`${SeverLink}/Feed/getAllcomments/${this.props.feed_id}`)
         const response = await fetchAll.json()
         if(response.comments){
           this.setState({Allcomments:response.comments})
+        }
+        } catch (error) {
+          
         }
       }
 

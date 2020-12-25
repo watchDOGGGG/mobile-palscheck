@@ -31,8 +31,8 @@ class NewsFeed extends React.Component{
     render(){
         return(
 
-                <article class="newfeed--3-art center br4 pa3 pa4-ns mv3 ba b--black-10">
-                <Tabs defaultActiveKey="1">
+                <article class="newfeed--3-art center  b--black-10">
+                <Tabs defaultActiveKey="1" centered>
                     <TabPane tab={this.props.fullname?`${this.props.fullname} Feed`:`Feed`}key="1">
                         <PostPannel/>
                         {

@@ -141,20 +141,20 @@ componentDidUpdate(){
 <div className="feed-content mt4">
                   {/* profile image */}
                   
-                     <Avatar src={this.state.UserDetails.profileimg} style={{float:'left',marginRight:'15px'}}size={40}/>
+                  <Avatar src={this.state.UserDetails.profileimg} style={{float:'left',marginRight:'15px'}}size={40}/>
                    
-                    <div className="right-side pa2"> 
-                    {/* profile name */}
-                    <div className="tl">
-                      <a href={`${this.state.UserDetails.username}.pal`}><span className="ttc fw6 feedname ">{this.state.UserDetails.fullname}</span></a>
-                      <span className="blue ml2"><CheckCircleFilled /></span>
-                        <span className="gray ml1 f6">@{this.state.UserDetails.username}</span>
+                   <div className=" pa2"> 
+                   {/* profile name */}
+                   <div className="tl pa2 center">
+                     <a style={{color:'inherit'}} href={`${this.state.UserDetails.username}.pal`}><span className="ttc fw6 feedname ">{this.state.UserDetails.fullname}</span></a>
+                     <span className="blue ml2"><CheckCircleFilled /></span>
+                       <span className="gray ml1 f6">@{this.state.UserDetails.username}</span>
+                      <Dropdown overlay={menu}>
+                         <a onClick={e => e.preventDefault()} className="feedmenu b f3 ml3 ant-dropdown-link" style={{float:'right', lineHeight:0}}><EllipsisOutlined /></a>
+                       </Dropdown>
+                       <span className="feedtime">{this.time_ago(new Date(this.state.feed.date))}</span>
                         {/* time */}
-                        <Dropdown overlay={menu}>
-                          <a onClick={e => e.preventDefault()} className="feedmenu b f3 ml3 ant-dropdown-link"><EllipsisOutlined /></a>
-                        </Dropdown>
                         
-                        <span className="feedtime">{this.time_ago(new Date(this.state.feed.date))}</span>
                         
                     </div>
                        {/* content text */}
@@ -183,7 +183,7 @@ componentDidUpdate(){
                         </div>
                        </div>
                         {/* comment like icon */} 
-                        <div className="commetLike mt4">
+                        <div className="commetLike mt4  ml3 mr3 center w-70">
                         <Row gutter={16}>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
                             <Reaction
@@ -256,7 +256,7 @@ componentDidUpdate(){
                         </div>
                        </div>
                         {/* comment like icon */} 
-                        <div className="commetLike mt4">
+                        <div className="commetLike mt4  ml3 mr3 center w-70">
                         <Row gutter={16}>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
                             <Reaction

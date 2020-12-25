@@ -29,14 +29,14 @@ class Createpage extends React.Component {
         const { visible} = this.state;
         return (
           <>
-            <div className="fixed crePlb3">
+            <div className="fixed crePlb3 center tc">
             <Button type="primary" onClick={this.showModal}>
              Create Page
             </Button>
             </div>
             <Modal
               visible={visible}
-              title="Create Business page"
+              title="Create your page"
               onOk={this.handleOk}
               onCancel={this.handleCancel}
               footer={[ ]}

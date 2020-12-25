@@ -9,14 +9,7 @@ class  SearchField extends React.Component{
         super()
         this.state = {
             Searchinput : '',
-            filterBoxstyle:{
-                width:"300px",
-                border:"none",
-                background:"none"
-            },
-            filterStyle:{
-                width:"430px"
-            },
+            
             Users:[],
             pages:[],
             isLoggedIn:[],
@@ -73,9 +66,11 @@ class  SearchField extends React.Component{
         })
         return(
             <>
-            <div className="header-filter tl br3 center" style={this.state.filterStyle}>
-                    <span className="f4 pointer"><SearchOutlined /></span>
-                    <input value={Searchinput} onChange={e => this.onSearchchange(e)} className="ml2 black" style={this.state.filterBoxstyle} type="text" placeholder={'search on palscheck'} />
+            <div className="header-filter tl br3 mr4" style={this.state.filterStyle}>
+                    <input value={Searchinput} onChange={e => this.onSearchchange(e)} className="black searchInput" style={this.state.filterBoxstyle} type="text" placeholder={'search on palscheck'} />
+                    <button class="searchButton" href="#">
+                <SearchOutlined/>
+            </button>
                 </div>
                 {
                    searchVisible === true && Searchinput.length>0?

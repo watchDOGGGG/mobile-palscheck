@@ -110,7 +110,7 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
                 <span className="f6 db profile-cardUsername">@{username}</span>
             </div>
             <div class="flex profile-card">
-                <div class=" w-25 pa1 ba b--black-20 f-name">
+                <div class=" w-40 tc pa1 ba b--black-20 f-name">
                     <Popover placement="bottom" title={text} content={content} trigger="click">
                         <span className=" f6 pointer"><ProfileOutlined />
                 <span className="db">page</span>
@@ -122,7 +122,7 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
                     isLoggedIn === id ?
                     null:
                     isLoggedIn !== id?
-                    <div class=" w-25 pa1 ba b--black-20">
+                    <div class=" w-40 tc pa1 ba b--black-20">
                 <Poll username={fullname}
                     userid={id}
                 />
@@ -134,7 +134,7 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
                     isLoggedIn !== id ?
                     null:
                     isLoggedIn === id ?
-                    <div class=" w-25 pa1  ba b--black-20 f-name" >
+                    <div class=" w-40 tc pa1  ba b--black-20 f-name" >
                 <span className=" f6  pointer" onClick={(e)=>editroute(true)}><SettingOutlined />
                 <span className="db ">Edit</span>
                 </span>
@@ -143,7 +143,7 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
                 }
                 
             </div>
-        <div className="db">
+        <div className="db f-name center flex ">
             {/* location */}
             <span className="lh-copy measure center f5  db ttc"><EnvironmentFilled /> Location</span>
             

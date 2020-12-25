@@ -24,13 +24,13 @@ class TalkStack extends React.Component{
     }
     render(){
         return(
-            <div className="newfeed--3-art br3 center w-60">
+            <div className="newfeed--3-art br3 center">
                {
                    this.state.allTalks.length > 0?
                    <TalkCrd allTalk = {this.state.allTalks}/>
                    :
                    <>
-                   <p>No active Talks yet</p>
+                   <p>you havn't join any talks yet</p>
                    </>
                }
             </div>

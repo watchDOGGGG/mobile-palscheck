@@ -160,19 +160,9 @@ class Talks extends React.Component{
         return(
             
             <div className="w-100 center newfeed--3-art talkq3e">
-                <div className="flex">
-                    {/* chat area */}
-                <div style={{marginBottom:'10%'}} className="br w-40 b--black-10">
-                    {
-                        this.state.talks.length > 0?
-                         <TalkCard talks = {this.state.talks} isLoggedIn={isLoggedIn}/>
-                        :
-                        <p>No talks on this</p>
-                    }
-                   
-                </div>
-                {/* info detail */}
-                <div className="bl w-70 b--black-10">
+                <div className="">
+                  {/* info detail */}
+                <div className="w-100 b--black-10">
                     {
                         this.state.feed.feedType === 'palsfeed'?
                         <>
@@ -231,6 +221,17 @@ class Talks extends React.Component{
                    :null
                     }
                 </div>
+                    {/* chat area */}
+                <div style={{marginBottom:'20%',height: "100vh",overflowY: 'scroll'}} className="w-100 b--black-10">
+                    {
+                        this.state.talks.length > 0?
+                         <TalkCard talks = {this.state.talks} isLoggedIn={isLoggedIn}/>
+                        :
+                        <p>No talks on this</p>
+                    }
+                   
+                </div>
+                
                 </div>
                 {/* chatbox */}
                 <TalkBox

@@ -89,7 +89,7 @@ class Profile extends React.Component{
                             }
                             </div>
                         {/* profile */ }
-                        <div className="white w-80 center">
+                        <div className="white center">
                             {
                                 this.state.profiler.map((profile,i)=>{
                                     return(
@@ -128,7 +128,7 @@ class Profile extends React.Component{
                         </div>
 
                         {/* profileNewsfeed */ }
-                        <div className=" w-60 center">
+                        <div className="center">
                             <ProfileNewsFeed 
                             address={ this.state.profiler.length > 0?
                             this.state.profiler[0]._id:null}
@@ -140,7 +140,7 @@ class Profile extends React.Component{
                         </div>
                         {
                             this.state.editroute === true?
-                            <div className="w-60 editing_panel fixed right-0">
+                            <div className="w-100 editing_panel fixed right-0">
                               <div className="edit_pane">
                                 {
                                     this.state.profiler.length >0?

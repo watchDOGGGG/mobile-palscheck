@@ -17,7 +17,7 @@ class App extends React.Component {
     }
   }
  MobileRedirect = ()=>{
-   window.location.href = "https://m.palscheck.com"
+  //  window.location.href = "https://m.palscheck.com"
  }
  renderContent = () => {
   if (isMobile) {

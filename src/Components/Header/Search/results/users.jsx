@@ -5,7 +5,7 @@ import Followbtn from '../../../Follow/followbtn.jsx'
 const Users =({result,isLoggedIn})=>{
 console.log(result)
     return(
-        result.length > 0?
+        result?
         result.map((user,i)=>{
             return(
                 <main class="mw6 center">
@@ -21,14 +21,7 @@ console.log(result)
                         <a href={`${user.username}.pal`}>
                             <h1 class="f6 f5-ns fw6 lh-title black mv0 tl">{user.fullname} </h1>
                             </a>
-                            {
-                                user.profession.length>0?
-                            user.profession[0].skill?
-                                <h2 class="f6 fw4 mt0 mb0 black-60 tl">#{user.profession[0].skill[0]}</h2>
-                                : null
-                                :null
-                            }
-
+                            <h2 class="f6 fw4 mt0 mb0 black-60 tl">@{user.username}</h2>
                         </div>
                         {
                             isLoggedIn?

@@ -52,9 +52,13 @@ class NewsFeedTemp extends React.Component {
   };
 
   componentDidMount() {
-    this.UserDetails()
+    try {
+      this.UserDetails()
     this.Feedmedia()
     this.pageData()
+    } catch (error) {
+      
+    }
   }
 
   //GEt all user additional info
@@ -155,18 +159,18 @@ class NewsFeedTemp extends React.Component {
                   
                      <Avatar src={this.state.UserDetails.profileimg} style={{float:'left',marginRight:'15px'}}size={40}/>
                    
-                    <div className="right-side pa2"> 
+                    <div className=" pa2"> 
                     {/* profile name */}
-                    <div className="tl">
+                    <div className="tl pa2 center">
                       <a style={{color:'inherit'}} href={`${this.state.UserDetails.username}.pal`}><span className="ttc fw6 feedname ">{this.state.UserDetails.fullname}</span></a>
                       <span className="blue ml2"><CheckCircleFilled /></span>
                         <span className="gray ml1 f6">@{this.state.UserDetails.username}</span>
-                        {/* time */}
-                        <Dropdown overlay={menu}>
-                          <a onClick={e => e.preventDefault()} className="feedmenu b f3 ml3 ant-dropdown-link"><EllipsisOutlined /></a>
+                       <Dropdown overlay={menu}>
+                          <a onClick={e => e.preventDefault()} className="feedmenu b f3 ml3 ant-dropdown-link" style={{float:'right', lineHeight:0}}><EllipsisOutlined /></a>
                         </Dropdown>
-                        
                         <span className="feedtime">{this.time_ago(new Date(this.props.date))}</span>
+                         {/* time */}
+                         
                         
                     </div>
                        {/* content text */}
@@ -194,7 +198,7 @@ class NewsFeedTemp extends React.Component {
                        </div>
                        </a>
                         {/* comment like icon */} 
-                        <div className="commetLike mt4">
+                        <div className="commetLike mt4 ml3 mr3 center w-70">
                         <Row gutter={16}>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
                                 <Reaction
@@ -232,19 +236,16 @@ class NewsFeedTemp extends React.Component {
                   
                     <Avatar src={this.state.PageDetails.profileImg} style={{float:'left',marginRight:'15px'}}size={40}/>
                    
-                  <div className="right-side pa2"> 
+                  <div className=""> 
                     {/* profile name */}
-                    <div className="tl">
-                      <a style={{color:'inherit'}} href={`${this.state.PageDetails.address}.page`}><span className="ttc fw6 feedname "><span className="gray ml1 f6"># </span>{this.state.PageDetails.name}</span></a>
-                      
-                        
-                        {/* time */}
-                        <Dropdown overlay={menu}>
+                    <div className="tl pa2 center">
+                      <a style={{color:'inherit'}} href={`${this.state.PageDetails.address}.page`}><span className="ttc fw6 feedname db"><span className="gray ml1 f6"># </span>{this.state.PageDetails.name}</span></a>
+
+                        <span className="feedtime">{this.time_ago(new Date(this.props.date))}</span>
+                         {/* time */}
+                         <Dropdown overlay={menu}>
                           <a onClick={e => e.preventDefault()} className="feedmenu b f3 ml3 ant-dropdown-link"><EllipsisOutlined /></a>
                         </Dropdown>
-                        
-                        <span className="feedtime">{this.time_ago(new Date(this.props.date))}</span>
-                        
                     </div>
                        {/* content text */}
                        <a href={`${this.props.id}.feed`} className="">
@@ -271,7 +272,7 @@ class NewsFeedTemp extends React.Component {
                        </div>
                        </a>
                         {/* comment like icon */} 
-                        <div className="commetLike mt4">
+                        <div className="commetLike mt4  ml3 mr3 center w-70">
                         <Row gutter={16}>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
                                 <Reaction

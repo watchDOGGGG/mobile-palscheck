@@ -25,9 +25,9 @@ class AllstoreTemp extends React.Component{
         const {pages} = this.state
         return(
             <div>
-               <div className="w-25 pa3 ml2 mt2 self-start">
+               <div className="w-50 pa3 ml2 mt2 self-start">
                <Link to="/createpage" className="tl button blue db">Create page</Link>
-               <Link onClick={this.redirectTopage} className="tl button blue db">Store</Link>
+               <Link onClick={this.redirectTopage} className="tl button blue db">Explore Store</Link>
                </div>
                <div>
                    {

@@ -64,4 +64,10 @@ a{
 .f-name2{
     color: ${props=>props.theme.fontColor}
 }
+.chat-box{
+    background-color: ${props=>props.theme.body}
+}
+.textarea_13l{
+    color: ${props=>props.theme.fontColor}
+}
 `

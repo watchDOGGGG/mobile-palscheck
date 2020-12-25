@@ -2,7 +2,6 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import './layout.css'
 import './mediaQuery.css'
-import NavMenu from '../NavMenu/navmenu.jsx'
 import Header from '../Header/header.jsx'
 import Profile from '../Profile/profile.jsx'
 import Home from '../Home/home.jsx';
@@ -24,7 +23,7 @@ import styled,{ThemeProvider} from 'styled-components'
 import {lightTheme,darkTheme,GlobalStyles} from '../Theme/theme.jsx'
 import CookieConsent, { Cookies } from "react-cookie-consent";
 import Footer from '../Footer/footer.jsx'
-const localLink = 'localhost:4000'
+const localLink = 'http://localhost:4000'
 const SeverLink = 'https://still-cove-26148.herokuapp.com'
 
 const StyledApp = styled.div`
@@ -111,12 +110,12 @@ class LayoutTemp extends React.Component {
                         {
                             Auth === 1 ?
                                 <>
-                                    {
+                                    {/* {
                                         Auth === 1 ?
                                             <div className="layout-sider fixed left-0 top-0"><NavMenu 
                                              username={userID.length < 1 ? null : userID.username}
                                             /></div> : null
-                    }
+                                    } */}
 
                                     {/* header */}
                                     {
