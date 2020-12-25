@@ -27,7 +27,7 @@ class Comments extends React.Component{
     componentDidUpdate(){
       try {
         setInterval(() => {
-          // this.getAllcomment()
+          this.getAllcomment()
         }, 1000);
           
       } catch (error) {
