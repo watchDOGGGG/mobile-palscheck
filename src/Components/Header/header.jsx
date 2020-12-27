@@ -27,7 +27,7 @@ class Header extends React.Component{
         return(
             <header>
                 <nav class="dt w-100 border-box pa3 ph5-ns">
-                    <Nav/>
+                    <Nav username={this.props.username}/>
                 <SearchField/>
              
                 <div className="tc">

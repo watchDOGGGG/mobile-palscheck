@@ -138,7 +138,7 @@ componentDidUpdate(){
             <p>loading..</p>
             :
             this.state.feed.feedType === 'palsfeed'?
-<div className="feed-content mt4">
+<div className="feed-content mt4 ba b--black-10">
                   {/* profile image */}
                   
                   <Avatar src={this.state.UserDetails.profileimg} style={{float:'left',marginRight:'15px'}}size={40}/>
@@ -215,7 +215,7 @@ componentDidUpdate(){
                 </div>
                 </div>
             :this.state.feed.feedType === 'pageFeed'?
-            <div className="feed-content mt4">
+            <div className="feed-content mt4 ba b--black-10">
                   {/* profile image */}
                   
                      <Avatar src={this.state.PageDetails.profileImg} style={{float:'left',marginRight:'15px'}}size={40}/>

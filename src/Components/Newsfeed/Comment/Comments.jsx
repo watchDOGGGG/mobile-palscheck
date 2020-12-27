@@ -7,6 +7,10 @@ import ContentEditable from 'react-contenteditable'
 import CommentCrd from './commentCrd'
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import io from 'socket.io-client'
+
+const socket = io.connect('https://still-cove-26148.herokuapp.com')
+
 const localLink = 'http://localhost:4000'
 const SeverLink = 'https://still-cove-26148.herokuapp.com'
 
@@ -19,10 +23,15 @@ class Comments extends React.Component{
             emojiVisbility:false,
             commentTxt:[],
             Allcomments:[],
-            loading: false
+            loading: false,
+            isLoggedIn:[],error:[]
         }
     }
 
+    componentDidMount(){
+      this.getLoggedInUser()
+      
+    }
     
     componentDidUpdate(){
       try {
@@ -35,7 +44,14 @@ class Comments extends React.Component{
       }
         
     }
-  
+    //get loggedin user
+   getLoggedInUser = async()=>{
+        const getLogginUser = await fetch(`${SeverLink}/Authentication/User/LoggedIn`,{
+            headers:{token:localStorage.token}
+        })
+        const response = await getLogginUser.json()
+        this.setState({isLoggedIn:response.loggedIn})
+    }
      //setting Emoji
        handleTxtChange = evt => {
         this.setState({html:evt.target.value});
@@ -54,26 +70,19 @@ class Comments extends React.Component{
         this.setState({emojiVisbility:false})
       }
       //post comments
-       PostComment = async()=>{
+      SendComments = async()=>{
         if(this.state.html !== ''){
-          this.setState({loading:true})
-          const post_C = await fetch('https://still-cove-26148.herokuapp.com/Feed/commentFeed',{
-            method:'POST',
-            headers:{"Content-Type":"application/json",token:localStorage.token},
-            body:JSON.stringify({
-              to:this.props.feed_by,
-              txt:this.state.html,
-              feed_id:this.props.feed_id
-            })
+          socket.emit('comment',this.state.html,this.props.feed_by,this.state.isLoggedIn,this.props.feed_id)
+          socket.on('success',(data)=>{
+            this.setState({html:'',loading:false,commentTxt:'posted....'})
           })
-          const response = await post_C.json()
-          if(response.comments){
-            this.setState({html:'',loading:false})
-            this.setState({commentTxt:'posted....'})
-          }
+          socket.on('error',(data)=>{
+            this.setState({loading:false,commentTxt:'',error:data})
+          })
         }
       }
 
+      
        getAllcomment = async()=>{
         try {
           const fetchAll = await fetch(`${SeverLink}/Feed/getAllcomments/${this.props.feed_id}`)
@@ -121,7 +130,7 @@ class Comments extends React.Component{
               <Tooltip title="send">
                 {
                  html.length > 0?
-                  <span className="dib ml3 f6 pointer blue lh-copy mt1 b" onClick={this.PostComment}>post
+                  <span className="dib ml3 f6 pointer blue lh-copy mt1 b" onClick={this.SendComments}>post
                   {
                     loading === true?
                     <Spin indicator={antIcon} />
@@ -134,6 +143,7 @@ class Comments extends React.Component{
                   </Tooltip>
                 </div>
                 <p>{this.state.commentTxt}</p>
+                <p className="red">{this.state.error}</p>
                 <CommentCrd All_comments={this.state.Allcomments}/>
             </div>
             

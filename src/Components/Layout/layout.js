@@ -11,7 +11,7 @@ import Followers from '../Profile/Followers/followers.jsx'
 import Store from '../Store_session/userStore/userStore'
 import CreatePage from '../Store_session/Create_store/createStore'
 import AllStore from '../Store_session/AllStores/Allstores'
-import Login from '../Authentication/Login.jsx'
+import Welcome from '../Authentication/welcome.jsx'
 import Talks from '../Talks/talks.jsx'
 import Talkstack from '../Talks/TalkStack/talks_stack.jsx'
 import Loading from '../Loading/loading.jsx'
@@ -23,6 +23,8 @@ import styled,{ThemeProvider} from 'styled-components'
 import {lightTheme,darkTheme,GlobalStyles} from '../Theme/theme.jsx'
 import CookieConsent, { Cookies } from "react-cookie-consent";
 import Footer from '../Footer/footer.jsx'
+import WorkSpace from '../WorkSpace/worspace.jsx'
+
 const localLink = 'http://localhost:4000'
 const SeverLink = 'https://still-cove-26148.herokuapp.com'
 
@@ -110,22 +112,17 @@ class LayoutTemp extends React.Component {
                         {
                             Auth === 1 ?
                                 <>
-                                    {/* {
-                                        Auth === 1 ?
-                                            <div className="layout-sider fixed left-0 top-0"><NavMenu 
-                                             username={userID.length < 1 ? null : userID.username}
-                                            /></div> : null
-                                    } */}
-
-                                    {/* header */}
+                                  {/* header */}
                                     {
                                         Auth === 1 ?
-                                            <div className="layout-header fixed right-0 top-0"><Header
-                                                ProfileImg={!userID.profileimg ? null : userID.profileimg}
-                                                fullname={!userID.fullname ?null : userID.fullname}
-                                                username={!userID.username ? null: userID.username}
+                                            <div className="layout-header fixed right-0 top-0">
+                                                <Header
+                                                ProfileImg={userID.profileimg}
+                                                fullname={userID.fullname}
+                                                username={userID.username}
                                                 UpdateAuth={this.UpdateAuth}
-                                            /></div> : null
+                                            />
+                                            </div> : null
                                     }
 
                                     {/* content */}
@@ -176,12 +173,12 @@ class LayoutTemp extends React.Component {
                                         <Route path={`/:id.talk`} exact component={
                                             Auth === 1 ?
                                                 Talks :
-                                                <Login UpdateAuth={this.UpdateAuth} />
+                                                <Welcome UpdateAuth={this.UpdateAuth} />
                                         } />
                                         <Route path={`/polls`} exact component={props =>
                                             Auth === 1 ?
                                                 <Polls /> :
-                                                <Login UpdateAuth={this.UpdateAuth} />
+                                                <Welcome UpdateAuth={this.UpdateAuth} />
                                         } />
                                         <Route path={`/createPage`} exact component={
                                             Auth === 1 ?
@@ -205,7 +202,7 @@ class LayoutTemp extends React.Component {
                                         } />
                                         <Route path={`/login`} exact component={props =>
                                             Auth === 2 ?
-                                                <Login UpdateAuth={this.UpdateAuth} /> :
+                                                <Welcome UpdateAuth={this.UpdateAuth} /> :
                                                 <Redirect to={'/home'} />
                                         } />
                                         <Route component={props => <NotFound/>}/>
@@ -217,12 +214,14 @@ class LayoutTemp extends React.Component {
                                 </> :
                                 Auth === 2 ?
                                 <>
-                                <Login UpdateAuth={this.UpdateAuth} redirectHome={this.redirectHome}/>
+                                <Welcome UpdateAuth={this.UpdateAuth} redirectHome={this.redirectHome}/>
                                 <div className="layout-footer tc"><Footer/></div>
                                 </>
                                     
                                     :
                                     <Loading />
+
+                                    // <WorkSpace/>
                         }
                         <CookieConsent
                             location="bottom"

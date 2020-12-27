@@ -16,24 +16,9 @@ class Login extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.switchEffect()
-    }
-    switchEffect() {
-        const signUpButton = document.getElementById('signUp');
-        const signInButton = document.getElementById('signIn');
-        const container = document.getElementById('container');
 
-        signUpButton.addEventListener('click', () => {
-            container.classList.add("right-panel-active");
-        });
-
-        signInButton.addEventListener('click', () => {
-            container.classList.remove("right-panel-active");
-        });
-    }
-
-    submitFormToLogin = () => {
+    submitFormToLogin = (e) => {
+        e.preventDefault()
         this.validatepassword()
     }
 
@@ -49,7 +34,7 @@ class Login extends React.Component {
         const response = await Send.json()
         if (response.token) {
             localStorage.setItem("token", response.token)
-            this.props.UpdateAuth(1)
+            this.props.updateAuth(1)
             this.props.redirectHome(true)
         } else if(response.error) {
             this.setState({errormsg:response.error,msg:''})
@@ -73,80 +58,55 @@ class Login extends React.Component {
     UpadetRoute = e => {
        this.props.UpdateAuth(e)
     }
-    redirectTopage=()=>{
-        window.location.href = 'https://forgot-password.palscheck.com/reset-password';
-    }
+   
     render() {
         const {msg,errormsg} = this.state
         return(
-            <div className="lg53l center black">
-                
-                <div class="container" id="container">
+          
+            <main class="pa4 black-80">
+                <form class="measure center" onSubmit={e=>this.submitFormToLogin(e)}>
+                    <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+                        <legend class="f4 fw6 ph0 mh0"></legend>
+                        <div class="mt3">
+                            <label class="db fw6 lh-copy f6" for="email-address">Email</label>
+                            <input onChange={e=>this.setState({email:e.target.value})} class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address" id="email-address"/>
+      </div>
+                            <div class="mv3">
+                                <label class="db fw6 lh-copy f6" for="password">Password</label>
+                                <input onChange={e=>this.setState({password:e.target.value})} class="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password" id="password"/>
+      </div>
+                                <label class="pa0 ma0 lh-copy f6 pointer"><input type="checkbox"/> Remember me</label>
+    </fieldset>
+                                <div class="">
+                                    <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in"/>
+    </div>
+                                    <div class="lh-copy mt3">
+                                        <a href="https://forgot-password.palscheck.com/reset-password" class="f6 link dim black db">Forgot your password?</a>
+                                    </div>
+                </form>
+                <span class="red">
+                    {errormsg}
+                </span>
+                {
+                    msg === 'delete' ?
+                        <div>
+                            <span class="green db">this account has been schedule for delete in 15 days if you still need it click the recover button to recover the account</span>
+                            <span
+                                onClick={this.RecoverAcct}
+                                class="bg-white blue br0 pa1 mt1 ba h2 w4 pointer db center">Recover</span>
+                        </div> :
+                        msg === 'not verified' ?
+                            <div>
+                                <span class="green db">this account has not yet been verified please check your email for your verification link</span>
+                            </div>
+                            :
+                            <span class="green">
+                                {msg}
+                            </span>
+                }
+            </main>
 
-                    {/* register */}
-                    <div class="form-container sign-up-container">
-                        <Register />
-                    </div>
 
-                    {/* login */}
-                    <div class="form-container sign-in-container">
-                        <div className="signin-box">
-                            <h1 className="flex" style={{lineHeight:3}}><LOGO/>Sign in</h1>
-                            <div class="social-container">
-                            </div>
-                            <input type="text" onChange={e=>this.setState({email:e.target.value})} placeholder="Email/username" value={this.state.email} required/>
-                            <input type="password" onChange={e=>this.setState({password:e.target.value})} placeholder="Password" value={this.state.password} required/>
-                            <a target="_blank" onClick={this.redirectTopage} className="blue">Forgot your password?</a>
-                            <button className="pointer" onClick={this.submitFormToLogin}>Sign In</button>
-                           
-                            <span class="red">
-                                    {errormsg}
-                                </span>
-                                {
-                                    msg === 'delete'?
-                                    <div>
-                                        <span class="green db">this account has been schedule for delete in 15 days if you still need it click the recover button to recover the account</span>
-                                        <span 
-                                        onClick={this.RecoverAcct}
-                                        class="bg-white blue br0 pa1 mt1 ba h2 w4 pointer db center">Recover</span>
-                                    </div>:
-                                    msg === 'not verified'?
-                                    <div>
-                                        <span class="green db">this account has not yet been verified please check your email for your verification link</span>
-                                     </div>
-                                    :
-                                <span class="green">
-                                    {msg}
-                                </span>
-                                }
-                                
-                        </div>
-                    </div>
-                    <div class="overlay-container">
-                        <div class="overlay ">
-                            <div class="overlay-panel overlay-left ">
-                            <div className="left-overlay"></div>
-                                <div className="left-effect">
-                                <p>welcome to palscheck</p>
-                                <p>get connected with people round the world and things you love</p>
-                                <button class="ghost db center pointer" id="signIn">Sign In</button>
-                               </div>
-                                
-                                
-                            </div>
-                            <div class="overlay-panel overlay-right">
-                                <div className="right-overlay"></div>
-                               <div className="right-effect">
-                               <h1 className="white">Palscheck!</h1>
-                                <span className="f3 b w-75">See how people feel about your content!</span>
-                                <button className="ghost db center pointer" id="signUp">Sign Up</button>
-                               </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           
         )
     }
 }

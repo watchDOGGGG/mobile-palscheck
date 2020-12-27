@@ -86,18 +86,6 @@ const TalkTemp = ({address,user,txt,date,auth})=>{
         auth?
         user === auth?
         <p className="pa2" style={{float:'right',width:'60%'}}>
-          
-        <div className="tl">
-         
-          {
-            UserDT.profileimg?
-            <Avatar src={UserDT.profileimg} size={'small'} /> 
-              :
-              <Avatar size={40} /> 
-          }                          
-        <a href={`${UserDT.username}.pal`} className="dib ml1 fw4 gray f6 link">@{UserDT.username}</a>
-        
-        </div>
         <span className="db ml4 tj bg-light-blue pa1 br3 talk__txt">{txt}</span>
         <span className="ml1 f6 light-blue db">{time_ago(new Date(date))}</span>
     </p>

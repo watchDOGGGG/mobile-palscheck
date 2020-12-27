@@ -29,10 +29,7 @@ class Register extends React.Component{
             loading: ''
         }
     }
-    componentDidMount(){
-        this.submitFormToregister()
-        this.switchEffect()
-    }
+   
     openNotification = (type) => {
         notification[type]({
             message: 'Success',
@@ -46,28 +43,10 @@ class Register extends React.Component{
           gender: e.target.value,
         });
       };
-    
-      
-    switchEffect(){
-        const signUpButton = document.getElementById('signUp');
-        const signInButton = document.getElementById('signIn');
-        const container = document.getElementById('container');
 
-        signUpButton.addEventListener('click', () => {
-            container.classList.add("right-panel-active");
-        });
-
-        signInButton.addEventListener('click', () => {
-            container.classList.remove("right-panel-active");
-});
-    }
-
-    submitFormToregister = ()=>{
-        var form = document.querySelector('form')
-        form.addEventListener('submit',(e)=>{
-            e.preventDefault(e)
-            this.validatepassword()
-        })
+    submitFormToregister = (e)=>{
+        e.preventDefault(e)
+        this.validatepassword()
     }
 
     validatepassword = async()=>{
@@ -110,22 +89,34 @@ class Register extends React.Component{
     render(){
         
     const {gender,route,error,loading,firstname,lastname,email,password,repass} = this.state;
-        return(
-            <>
-           
-                <form action="#">
-                <h1 className="flex" style={{lineHeight:3}}><LOGO/>Create Account</h1>
-                <div class="social-container">
-                    we just need few info to get started
-                </div>
-                
-                <input type="text" id="fname" value={firstname} onChange={e=>this.setState({firstname:e.target.value})} placeholder="Firstname" required/>
-                <input type="text" id="lname" value={lastname} onChange={e=>this.setState({lastname:e.target.value})} placeholder="Lastname" required/>
-                <input type="email" id="email" value={email} onChange={e=>this.setState({email:e.target.value})} placeholder="email" required/>
-                <input type="password" id="pass" value={password} onChange={e=>this.setState({password:e.target.value})} placeholder="password" required/>
-                <input type="password" id="cpass" value={repass} onChange={e=>this.setState({repass:e.target.value})} placeholder="ReType-Password" required/>
-            <label className="f6 tl">Gender</label>
-                <Radio.Group
+        return(    
+               <main class="pa4 black-80">
+               <form class="measure center" onSubmit={e=>this.submitFormToregister(e)}>
+                   <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+                       <legend class="f4 fw6 ph0 mh0 ttu">We just need a few things to get started</legend>
+                       <div class="mt3">
+                           <label class="db fw6 lh-copy f6" for="email-address">Firstname</label>
+                           <input onChange={e=>this.setState({firstname:e.target.value})} placeholder="Firstname" required class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" id="email-address"/>
+     </div>
+     <div class="mt3">
+                           <label class="db fw6 lh-copy f6" for="email-address">Lastname</label>
+                           <input onChange={e=>this.setState({lastname:e.target.value})} placeholder="Lastname" required class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" id="email-address"/>
+     </div>
+     <div class="mt3">
+                           <label class="db fw6 lh-copy f6" for="email-address">Email</label>
+                           <input onChange={e=>this.setState({email:e.target.value})} placeholder="email" required class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email"  id="email-address"/>
+     </div>
+     <div class="mt3">
+                           <label class="db fw6 lh-copy f6" for="email-address">Password</label>
+                           <input onChange={e=>this.setState({password:e.target.value})} placeholder="password" required class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" id="pass"/>
+     </div>
+                           <div class="mv3">
+                               <label class="db fw6 lh-copy f6" for="password">ReType-Password</label>
+                               <input onChange={e=>this.setState({repass:e.target.value})} placeholder="ReType-Password" required class="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password" id="cpass"/>
+     </div>
+                      <div className="mt3">
+                     <label className="f6 tl">Gender</label>
+               <Radio.Group
                     options={optionsWithDisabled}
                     onChange={this.onChange4}
                     value={gender}
@@ -134,13 +125,16 @@ class Register extends React.Component{
                     className="f6"
                 />
                 <div className="f6">by clicking on the signUp button, you agree to the <Link href="#" className="blue">terms and conditions</Link>,<Link  href="#" className="blue">policy privacy cookies</Link> that covers palscheck</div>
-                <button htmlType="submit" className="pointer">Sign Up</button>
+                <input class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign up"/>
                     <span className="red">{error}</span>
                     <span className="green">{loading}</span>
-            </form>
-           
-            </>     
+                          </div>        
+   </fieldset>
+                      
+               </form>
                
+           </main>
+
         )
     }
 }
