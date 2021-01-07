@@ -13,7 +13,7 @@ function getBase64(file) {
 }
 
 const localLink = 'http://localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 class Avatar extends React.Component {
     constructor(){
         super()

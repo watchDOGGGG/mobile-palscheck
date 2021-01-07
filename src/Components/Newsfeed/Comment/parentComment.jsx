@@ -11,7 +11,7 @@ const ParentComment = ({comment_txt, comment_id,feed_id,comment_by,comment_to,co
 
   useEffect(()=>{
     getUserDetails()
-  })
+  },[])
 
    // convey Time Frame
   const time_ago = (time) =>{
@@ -70,7 +70,7 @@ const ParentComment = ({comment_txt, comment_id,feed_id,comment_by,comment_to,co
   }
 
       const getUserDetails = async()=>{
-        const userDt = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/by_id/${comment_by}`)
+        const userDt = await fetch(`https://still-cover-backend.uc.r.appspot.com/Authentication/by_id/${comment_by}`)
         const response = await userDt.json()
         if(response.profiler){
           setUserDet(response.profiler)

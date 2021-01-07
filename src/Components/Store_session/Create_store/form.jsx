@@ -5,7 +5,7 @@ import { Select } from 'antd';
 const { Option } = Select;
 const { TextArea } = Input;
 const localLink = 'http://localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const FormIni = ()=>{
     const [form] = Form.useForm();
     const [error, setError] = useState()

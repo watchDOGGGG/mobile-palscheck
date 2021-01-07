@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from 'react'
 import {BookOutlined} from '@ant-design/icons';
 
+const localLink = 'localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const style = { background: '', padding: '8px 0' };
 const BookMarkbtn = ({feed_id,feed_by})=>{
     const [booked,setbook] = useState([])
@@ -9,7 +11,7 @@ const BookMarkbtn = ({feed_id,feed_by})=>{
     })
 
     const bookfeed = async()=>{
-        const sendbook = await fetch('https://still-cove-26148.herokuapp.com/Feed/bookmark',{
+        const sendbook = await fetch(`${SeverLink}/Feed/bookmark`,{
             method: 'POST',
             headers:{"Content-Type":"application/json",token:localStorage.token},
             body: JSON.stringify({
@@ -23,7 +25,7 @@ const BookMarkbtn = ({feed_id,feed_by})=>{
     }
 
     const checkIfMarked = async()=>{
-        const checkMarked = await fetch(`https://still-cove-26148.herokuapp.com/Feed/checkforbookmark/${feed_id}`,{
+        const checkMarked = await fetch(`${SeverLink}/Feed/checkforbookmark/${feed_id}`,{
             headers:{token:localStorage.token}
         })
         const response = await checkMarked.json()

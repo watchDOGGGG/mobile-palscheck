@@ -12,7 +12,7 @@ useEffect(()=>{
 })
      //GEt all user additional info
   const UserDetails = async()=>{
-    const FetchAllDetails = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/by_id/${from}`)
+    const FetchAllDetails = await fetch(`https://still-cover-backend.uc.r.appspot.com/Authentication/by_id/${from}`)
       const response = await FetchAllDetails.json()
       if (response.profiler) {
           setUserDt(response.profiler)
@@ -23,7 +23,7 @@ useEffect(()=>{
         setfeedback(event.target.value)
     }
     const SendpollFeedback = async()=>{
-        const sendpoll = await fetch('https://still-cove-26148.herokuapp.com/Feed/poll/feedback',{
+        const sendpoll = await fetch('https://still-cover-backend.uc.r.appspot.com/Feed/poll/feedback',{
             method:'POST',
             headers:{"Content-Type":"application/json",token:localStorage.token},
             body: JSON.stringify({
@@ -44,17 +44,21 @@ useEffect(()=>{
             <div class="front" style={{ backgroundImage: `url(https://source.unsplash.com/collection/${address}/1600x900/daily)` }}>
                 {
                     userDetails.profileimg ?
-                        <img src={userDetails.profileimg} alt="palscheck" />
+                       <span className="pollImg">
+                            <Avatar size={'large'} src={userDetails.profileimg} alt="palscheck"/>
+                       </span>
                         :
-                        <Avatar size="small" src={''} alt="palscheck"/>
+                        <span className="pollImg">
+                            <Avatar size={'large'} alt="palscheck"/>
+                       </span>
                 }
 
                 <p>{txt}.</p>
             </div>
             <div class="back">
                 <div>
-                    <span className="db  f5">-{userDetails.fullname}</span>
-                    <span className="db gray f6">#{userDetails.username}</span>
+                    <span className="db  f5"><a href={`${userDetails.username}.pal`}>from-{userDetails.fullname}</a></span>
+                    <span className="db gray f6">@{userDetails.username}</span>
                     <p>send Feedback</p>
                     <textarea className="" placeholder="write feedback here.." value={feedback} onChange={e => handleChange(e)}></textarea>
                     <span className="db">{msg}</span>

@@ -1,6 +1,8 @@
 import React from 'react'
 import {HeartOutlined,HeartFilled} from '@ant-design/icons';
 
+const localLink = 'http://localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const style = { background: '', padding: '8px 0' };
 class Reaction extends React.Component{
 
@@ -14,20 +16,20 @@ class Reaction extends React.Component{
     }
     componentDidMount(){
         this.checkIfLiked()
+        setInterval(() => {
+            this.getReactCount()
+        }, 1000);
     }
-    componentDidUpdate(){
-        this.getReactCount()
-        
-    }
+   
     getReactCount = async()=>{
-        const fetchAll = await fetch(`https://still-cove-26148.herokuapp.com/Feed/like/count/${this.props.feed_id}`)
+        const fetchAll = await fetch(`${SeverLink}/Feed/like/count/${this.props.feed_id}`)
         const response = await fetchAll.json()
         if(response.count){
             this.setState({count:response.count})
         }
     }
     SendReact = async()=>{
-        const send_re3 = await fetch('https://still-cove-26148.herokuapp.com/Feed/reaction',{
+        const send_re3 = await fetch(`${localLink}/Feed/reaction`,{
             method:'POST',
             headers:{'Content-Type':'application/json',token:localStorage.token},
             body: JSON.stringify({
@@ -52,7 +54,7 @@ class Reaction extends React.Component{
    
     checkIfLiked = async()=>{
         
-        const checked = await fetch(`https://still-cove-26148.herokuapp.com/Feed/hasLiked/${this.props.feed_id}`,{
+        const checked = await fetch(`${SeverLink}/Feed/hasLiked/${this.props.feed_id}`,{
             headers:{token:localStorage.token},
         })
         const response = await checked.json()

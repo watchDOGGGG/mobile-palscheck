@@ -4,7 +4,7 @@ import PhoneInput, {isValidPhoneNumber } from 'react-phone-number-input'
 import {ArrowRightOutlined} from '@ant-design/icons';
 
 const localLink = 'http://localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 
 const Phone = ({address})=>{
     const [value, setValue] = useState()

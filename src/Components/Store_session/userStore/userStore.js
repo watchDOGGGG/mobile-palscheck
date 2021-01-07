@@ -21,7 +21,7 @@ class Store extends React.Component{
         }
     }
     getPageData = async()=>{
-        const fetchAll = await fetch(`https://still-cove-26148.herokuapp.com/Page/${this.props.match.params.id}`,)
+        const fetchAll = await fetch(`https://still-cover-backend.uc.r.appspot.com/Page/${this.props.match.params.id}`,)
         const response = await fetchAll.json()
         if(response.data){
             this.setState({pageData:response.data})
@@ -29,7 +29,7 @@ class Store extends React.Component{
     }
      //getLoggedInuser
      getLoggedInUser = async()=>{
-        const getLogginUser = await fetch('https://still-cove-26148.herokuapp.com/Authentication/User/LoggedIn',{
+        const getLogginUser = await fetch('https://still-cover-backend.uc.r.appspot.com/Authentication/User/LoggedIn',{
             headers:{token:localStorage.token}
         })
         const response = await getLogginUser.json()

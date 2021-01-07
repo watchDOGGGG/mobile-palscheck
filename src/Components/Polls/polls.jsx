@@ -17,7 +17,7 @@ class Polls extends React.Component{
     this.getAllFeedback()
   }
   getAllFeedback = async()=>{
-    const fetchAll = await fetch('https://still-cove-26148.herokuapp.com/Feed/getFeedback/poll',{
+    const fetchAll = await fetch('https://still-cover-backend.uc.r.appspot.com/Feed/getFeedback/poll',{
         headers:{token:localStorage.token}
     })
     const response = await fetchAll.json()
@@ -26,7 +26,7 @@ class Polls extends React.Component{
     }
 }
    FetchUserPoll = async()=>{
-    const fetchpoll = await fetch('https://still-cove-26148.herokuapp.com/Feed/poll/poll',{
+    const fetchpoll = await fetch('https://still-cover-backend.uc.r.appspot.com/Feed/poll/poll',{
       headers:{token:localStorage.token}
     })
     const response = await fetchpoll.json()

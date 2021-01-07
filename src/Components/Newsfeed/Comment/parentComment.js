@@ -22,12 +22,12 @@ class ParentComment extends React.Component{
         }
     }
 
-    componentDidUpdate(){
+    // componentDidUpdate(){
         
-      setInterval(() => {
-        this.getAllcomment()
-      }, 4000)
-    }
+    //   setInterval(() => {
+    //     this.getAllcomment()
+    //   }, 4000)
+    // }
      like = () => {
        this.setState({likes:1});
        this.setState({dislikes:0});

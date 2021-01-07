@@ -10,7 +10,7 @@ const TalkTemp = ({address,user,date})=>{
     },[])
 
     const getTalkdtls = async()=>{
-        const getDetails = await fetch(`https://still-cove-26148.herokuapp.com/Feed/getfeedbyid/${address}`)
+        const getDetails = await fetch(`https://still-cover-backend.uc.r.appspot.com/Feed/getfeedbyid/${address}`)
         const response = await getDetails.json()
         if(response.result){
             setTalkDT(response.result)
@@ -18,7 +18,7 @@ const TalkTemp = ({address,user,date})=>{
     }
       //GEt feedMedia
    const Feedmedia = async()=>{
-    const FetchAllMedia = await fetch(`https://still-cove-26148.herokuapp.com/Feed/${address}`)
+    const FetchAllMedia = await fetch(`https://still-cover-backend.uc.r.appspot.com/Feed/${address}`)
     const response = await FetchAllMedia.json()
     if(response.results){
         setmedia(response.results)
@@ -80,7 +80,7 @@ const TalkTemp = ({address,user,date})=>{
     return time;
   }
   const LeaveTalk = async(address)=>{
-    const leave = await fetch(`https://still-cove-26148.herokuapp.com/Talk//delete/${address}`,{
+    const leave = await fetch(`https://still-cover-backend.uc.r.appspot.com/Talk//delete/${address}`,{
       headers:{token:localStorage.token}
     })
     const res = await leave.json()

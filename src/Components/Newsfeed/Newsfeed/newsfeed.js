@@ -1,11 +1,15 @@
 import React from 'react'
 import NewsFeedCard from './newsfeedCard.jsx'
 import { Tabs } from 'antd';
-import {EllipsisOutlined} from '@ant-design/icons';
 import PostPannel from '../postPannel/postpannel';
 import BookMark from '../Bookmark/BookMars/bookmark.jsx'
-import PageLoading from '../../Loading/pageLoading'
-import Poll from '../../Polls/pollAp'
+import PageLoading from '../../Loading/homepageLoading'
+import io from 'socket.io-client'
+
+const Socket = io.connect('http://localhost:4000')
+
+const localLink = 'http://localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const { TabPane } = Tabs;
 
 const pollStyle = {
@@ -22,23 +26,24 @@ class NewsFeed extends React.Component{
         }
     }
     componentDidMount(){
+     
+           Socket.on('FeedsForYou',data=>{
+            this.setState({Feeds:data})
+        })
+      
         
-        setInterval(() => {
-            this.FetchAllFeed()
-        }, 3000);
     }
-    FetchAllFeed = async()=>{
-        const FetchAll = await fetch('https://still-cove-26148.herokuapp.com/Feed/',)
-        const response = await FetchAll.json()
-        if(response.results){
-            this.setState({Feeds:response.results})
-        }
-    }
+ 
+  
     render(){
+        if(this.props.following.length>0||this.props.loggedIn){
+            Socket.emit('getFeed',this.props.following,this.props.loggedIn)
+            
+        }
         
         return(
 
-                <article class="newfeed--3-art center  b--black-10">
+                <article class="newfeed--3-art ba b--black-10">
                 <Tabs defaultActiveKey="1" centered>
                     <TabPane tab="palsFeed" key="1">
                         
@@ -49,12 +54,10 @@ class NewsFeed extends React.Component{
                                 :
                                 <NewsFeedCard
                                     AllFeeds={this.state.Feeds}
+                                    loggedIn={this.props.loggedIn}
                                 />
                         }
                         
-                    </TabPane>
-                    <TabPane tab="Bookmark" key="4">
-                        <BookMark/>
                     </TabPane>
                   
                     <span>end</span>

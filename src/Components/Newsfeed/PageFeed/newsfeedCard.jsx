@@ -3,7 +3,7 @@ import NewsFeedTemp from './newsFeedTemp'
 
 const NewsFeedCard = ({AllFeeds})=>{
     return(
-        <div className="ba b--black-10">
+        <div>
             {
                 AllFeeds.map((feeds,i)=>{
                     return(

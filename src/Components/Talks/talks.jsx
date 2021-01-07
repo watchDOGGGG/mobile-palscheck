@@ -3,6 +3,8 @@ import React from 'react'
 import TalkBox from './talkbox.jsx'
 import TalkCard from './talkCrd.jsx'
 
+const localLink = 'localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 class Talks extends React.Component{
     constructor(){
         super()
@@ -45,7 +47,7 @@ class Talks extends React.Component{
 
        //getLoggedInuser
        getLoggedInUser = async()=>{
-        const getLogginUser = await fetch('https://still-cove-26148.herokuapp.com/Authentication/User/LoggedIn',{
+        const getLogginUser = await fetch(`${SeverLink}/Authentication/User/LoggedIn`,{
             headers:{token:localStorage.token}
         })
         const response = await getLogginUser.json()
@@ -54,7 +56,7 @@ class Talks extends React.Component{
 
       //GEt all user additional info
   UserDetails = async()=>{
-    const FetchAllDetails = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/by_id/${this.state.feed.feedby}`)
+    const FetchAllDetails = await fetch(`${SeverLink}/Authentication/by_id/${this.state.feed.feedby}`)
     const response = await FetchAllDetails.json()
     if(response.profiler){
       this.setState({UserDetails:response.profiler})
@@ -62,21 +64,21 @@ class Talks extends React.Component{
   }
     //GEt all data info for page post
     pageData = async()=>{
-      const FetchAllDetails = await fetch(`https://still-cove-26148.herokuapp.com/Page/getD/${this.state.feed.feedby}`)
+      const FetchAllDetails = await fetch(`${SeverLink}/Page/getD/${this.state.feed.feedby}`)
       const response = await FetchAllDetails.json()
       if(response.data){
         this.setState({PageDetails:response.data})
       }
     }
     fetchChats = async()=>{
-      const fetchtalks = await fetch(`https://still-cove-26148.herokuapp.com/Talk/${this.props.match.params.id}`)
+      const fetchtalks = await fetch(`${SeverLink}/Talk/${this.props.match.params.id}`)
       const response = await fetchtalks.json()
       if(response.result){
           this.setState({talks:response.result})
       }
     }
     setUserDT = async()=>{
-        const setid = await fetch('https://still-cove-26148.herokuapp.com/Authentication/',{
+        const setid = await fetch('${SeverLink}/Authentication/',{
             headers:{token:localStorage.token},
         })
         const response = await setid.json()
@@ -86,14 +88,14 @@ class Talks extends React.Component{
     }
       //GEt feedMedia
    Feedmedia = async()=>{
-    const FetchAllMedia = await fetch(`https://still-cove-26148.herokuapp.com/Feed/${this.props.match.params.id}`)
+    const FetchAllMedia = await fetch(`${SeverLink}/Feed/${this.props.match.params.id}`)
     const response = await FetchAllMedia.json()
     if(response.results){
       this.setState({feedMedia:response.results})
     }
   }
   getPostDT = async()=>{
-    const FetchData = await fetch(`https://still-cove-26148.herokuapp.com/Feed/single/${this.props.match.params.id}`)
+    const FetchData = await fetch(`${SeverLink}/Feed/single/${this.props.match.params.id}`)
     const response = await FetchData.json()
     if(response.result){
       this.setState({feed:response.result})
@@ -160,9 +162,19 @@ class Talks extends React.Component{
         return(
             
             <div className="w-100 center newfeed--3-art talkq3e">
-                <div className="">
-                  {/* info detail */}
-                <div className="w-100 b--black-10">
+                <div className="flex">
+                    {/* chat area */}
+                <div style={{marginBottom:'20%',height: "100vh",overflowY: 'scroll'}} className="br w-40 b--black-10">
+                    {
+                        this.state.talks.length > 0?
+                         <TalkCard talks = {this.state.talks} isLoggedIn={isLoggedIn}/>
+                        :
+                        <p>No talks on this</p>
+                    }
+                   
+                </div>
+                {/* info detail */}
+                <div className="bl w-70 b--black-10">
                     {
                         this.state.feed.feedType === 'palsfeed'?
                         <>
@@ -221,17 +233,6 @@ class Talks extends React.Component{
                    :null
                     }
                 </div>
-                    {/* chat area */}
-                <div style={{marginBottom:'20%',height: "100vh",overflowY: 'scroll'}} className="w-100 b--black-10">
-                    {
-                        this.state.talks.length > 0?
-                         <TalkCard talks = {this.state.talks} isLoggedIn={isLoggedIn}/>
-                        :
-                        <p>No talks on this</p>
-                    }
-                   
-                </div>
-                
                 </div>
                 {/* chatbox */}
                 <TalkBox

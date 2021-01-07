@@ -20,7 +20,7 @@ class NewsFeed extends React.Component{
         this.FetchAllFeed()
     }
     FetchAllFeed = async()=>{
-        const FetchAll = await fetch(`https://still-cove-26148.herokuapp.com/Feed/getFeed/${this.props.address}`)
+        const FetchAll = await fetch(`https://still-cover-backend.uc.r.appspot.com/Feed/getFeed/${this.props.address}`)
         const response = await FetchAll.json()
         if(response.feeds){
             this.setState({Feeds:response.feeds})
@@ -31,7 +31,7 @@ class NewsFeed extends React.Component{
     render(){
         return(
 
-                <article class="newfeed--3-art center  b--black-10">
+                <article class="newfeed--3-art ba b--black-10">
                 <Tabs defaultActiveKey="1" centered>
                     <TabPane tab={this.props.fullname?`${this.props.fullname} Feed`:`Feed`}key="1">
                         <PostPannel/>
@@ -42,6 +42,7 @@ class NewsFeed extends React.Component{
                                 <>
                                 <NewsFeedCard
                                     AllFeeds={this.state.Feeds}
+                                    loggedIn={this.props.loggedIn}
                                 />
                                 </>
                                 :null

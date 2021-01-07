@@ -12,22 +12,20 @@ class AllstoreTemp extends React.Component{
        this.filterCategory()
    }
      filterCategory = async()=>{
-         const GetAllPage = await fetch('https://still-cove-26148.herokuapp.com/Page/')
+         const GetAllPage = await fetch('https://still-cover-backend.uc.r.appspot.com/Page/')
          const response = await GetAllPage.json()
          if(response.pages){
             this.setState({pages:response.pages})
          }
      }
-     redirectTopage=(address)=>{
-        window.location.href = 'https://store.palscheck.com';
-    }
+    
     render(){
         const {pages} = this.state
         return(
             <div>
-               <div className="w-50 pa3 ml2 mt2 self-start">
-               <Link to="/createpage" className="tl button blue db">Create page</Link>
-               <Link onClick={this.redirectTopage} className="tl button blue db">Explore Store</Link>
+               <div className="w-25 pa3 ml2 mt2 self-start">
+               <Link to="/createpage" className="tl button blue db pointer"><button>Create page</button></Link>
+               <a href="https://store.palscheck.com" className="tl button blue db pointer"><button>Store</button></a>
                </div>
                <div>
                    {

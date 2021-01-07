@@ -10,7 +10,7 @@ import ContentEditable from 'react-contenteditable'
 const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
 
 const localLink = 'http://localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 
 class Editing extends React.Component{
     constructor(){

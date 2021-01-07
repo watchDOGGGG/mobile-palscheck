@@ -1,6 +1,8 @@
 import React from 'react'
 import BookMarkCrd from './bookmarkCard'
 import {ClearOutlined} from '@ant-design/icons';
+const localLink = 'localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 class BookMark extends React.Component{
 
     constructor(){
@@ -13,7 +15,7 @@ class BookMark extends React.Component{
         this.getAllBookmarks()
     }
     getAllBookmarks = async()=>{
-        const fetchAll = await fetch('https://still-cove-26148.herokuapp.com/Feed/getAllbookmark/bookmark',{
+        const fetchAll = await fetch(`${SeverLink}/Feed/getAllbookmark/bookmark`,{
             headers:{token:localStorage.token}
         })
         const response = await fetchAll.json()
@@ -23,7 +25,7 @@ class BookMark extends React.Component{
     }
     
     clearAllbookmark = async()=>{
-        const clearAll = await fetch('https://still-cove-26148.herokuapp.com/Feed/clearBookmark',{
+        const clearAll = await fetch(`${SeverLink}/Feed/clearBookmark`,{
         method:'POST',    
         headers:{'Content-Type':'application/json',token:localStorage.token}
         })

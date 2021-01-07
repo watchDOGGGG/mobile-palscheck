@@ -2,12 +2,12 @@ import React from 'react'
 import {Avatar,} from 'antd';
 import {Link} from 'react-router-dom'
 import { UserOutlined,BookOutlined } from '@ant-design/icons';
-
+const localLink = 'localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 class BookMarkTemp extends React.Component {
   state = {
     data: [],
     feedMedia:[],
-    UserDetails:[]
 
   };
 
@@ -15,28 +15,18 @@ class BookMarkTemp extends React.Component {
     this.postDetails()
     this.Feedmedia()
   }
-  componentDidUpdate(){
-    this.UserDetails()
-  }
+ 
   postDetails = async()=>{
-    const fetchfeedDt = await fetch(`https://still-cove-26148.herokuapp.com/Feed/getfeedbyid/${this.props.feedid}`)
+    const fetchfeedDt = await fetch(`${SeverLink}/Feed/getfeedbyid/${this.props.feedid}`)
     const response = await fetchfeedDt.json()
     if(response.result){
       this.setState({data:response.result})
     }
   } 
-  //GEt all user additional info
-  UserDetails = async()=>{
-    const FetchAllDetails = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/by_id/${this.state.data.feedby}`)
-    const response = await FetchAllDetails.json()
-    console.log(response)
-    if(response !== 'no user found'){
-      this.setState({UserDetails:response})
-    }
-  }
+
    //GEt feedMedia
    Feedmedia = async()=>{
-    const FetchAllMedia = await fetch(`https://still-cove-26148.herokuapp.com/Feed/${this.props.feedid}`)
+    const FetchAllMedia = await fetch(`${SeverLink}/Feed/${this.props.feedid}`)
     const response = await FetchAllMedia.json()
     if(response !== 'no post'){
       this.setState({feedMedia:response})

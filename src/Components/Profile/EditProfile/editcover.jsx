@@ -4,7 +4,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import {Button} from 'antd';
 
 const localLink = 'http://localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {

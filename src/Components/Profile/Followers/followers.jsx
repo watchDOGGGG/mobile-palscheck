@@ -3,7 +3,8 @@ import { Tabs } from 'antd';
 import FollowersTemp from './followersTemp.jsx'
 import Following from './followingTemp.jsx';
 import { Skeleton } from 'antd';
-
+const localLink = 'http://localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const { TabPane } = Tabs;
 
 class Followers extends React.Component{
@@ -25,14 +26,14 @@ class Followers extends React.Component{
     }
 
     getAllFollowers = async()=>{
-        const fetchAll = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/getAllFollowers/${this.props.userid}`)
+        const fetchAll = await fetch(`${SeverLink}/Authentication/getAllFollowers/${this.props.userid}`)
         const response = await fetchAll.json()
         if(response.followers){
             this.setState({followers:response.followers})
         }
     }
     getAllFollowing = async()=>{
-        const fetchAll = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/getAllFollowing/${this.props.userid}`)
+        const fetchAll = await fetch(`${SeverLink}/Authentication/getAllFollowing/${this.props.userid}`)
         const response = await fetchAll.json()
         if(response.following){
             this.setState({following:response.following})

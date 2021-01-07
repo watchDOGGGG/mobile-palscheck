@@ -1,6 +1,8 @@
 import React from 'react'
 import {HeartOutlined,HeartFilled} from '@ant-design/icons';
 
+const localLink = 'localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const style = { background: '', padding: '8px 0' };
 class Reaction extends React.Component{
 
@@ -17,7 +19,7 @@ class Reaction extends React.Component{
     }
  
     SendReact = async()=>{
-        const send_re3 = await fetch('https://still-cove-26148.herokuapp.com/Feed/reactCommt',{
+        const send_re3 = await fetch(`${SeverLink}/Feed/reactCommt`,{
             method:'POST',
             headers:{'Content-Type':'application/json',token:localStorage.token},
             body: JSON.stringify({
@@ -37,7 +39,7 @@ class Reaction extends React.Component{
     }
    
     checkIfLiked = async()=>{
-        const checked = await fetch(`https://still-cove-26148.herokuapp.com/Feed/hasLikedComment/${this.props.feed_id}/${this.props.comment_id}`,{
+        const checked = await fetch(`${SeverLink}/Feed/hasLikedComment/${this.props.feed_id}/${this.props.comment_id}`,{
             headers:{token:localStorage.token},
         })
         const response = await checked.json()

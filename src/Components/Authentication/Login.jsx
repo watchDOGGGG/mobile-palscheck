@@ -1,9 +1,7 @@
 import React from 'react'
-import Register from './Register.jsx'
-import LOGO from '../Logo/logofav2.jsx'
 
 const localLink = 'http://localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 class Login extends React.Component {
 
     constructor() {
@@ -47,7 +45,7 @@ class Login extends React.Component {
 
    RecoverAcct = async()=>{
        if(this.state.email !== ''){
-        const recover = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/cancel/Delete/${this.state.email}`)
+        const recover = await fetch(`${SeverLink}/Authentication/cancel/Delete/${this.state.email}`)
         const response = await recover.json()
         if(response.success){
             this.setState({msg:'recovered you can now logIn',errormsg:''})
@@ -69,7 +67,7 @@ class Login extends React.Component {
                         <legend class="f4 fw6 ph0 mh0"></legend>
                         <div class="mt3">
                             <label class="db fw6 lh-copy f6" for="email-address">Email</label>
-                            <input onChange={e=>this.setState({email:e.target.value})} class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address" id="email-address"/>
+                            <input onChange={e=>this.setState({email:e.target.value})} class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="email-address" id="email-address"/>
       </div>
                             <div class="mv3">
                                 <label class="db fw6 lh-copy f6" for="password">Password</label>

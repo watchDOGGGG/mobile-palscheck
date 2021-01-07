@@ -4,6 +4,8 @@ import moment from 'moment';
 import { DislikeOutlined, LikeOutlined, DislikeFilled, LikeFilled,SmileOutlined,CameraOutlined,
   SendOutlined} from '@ant-design/icons';
 import Reaction from './Reaction/reaction.jsx'
+
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const ChildCommentTmp = ({rpl_id,rpl_txt,comment_id,feed_id,rpl_by,rpl_to,reply_date}) => {
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
@@ -89,7 +91,7 @@ const ChildCommentTmp = ({rpl_id,rpl_txt,comment_id,feed_id,rpl_by,rpl_to,reply_
   }
 
   const getUserDetails = async()=>{
-    const userDt = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/by_id/${rpl_by}`)
+    const userDt = await fetch(`${SeverLink}/Authentication/by_id/${rpl_by}`)
     const response = await userDt.json()
     if(response.profiler){
       setUserDet(response.profiler)

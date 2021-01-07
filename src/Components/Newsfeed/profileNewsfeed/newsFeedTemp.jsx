@@ -8,30 +8,11 @@ import Comments from '../Comment/Comments.jsx'
 import Reaction from '../Reaction/reaction.jsx'
 import BookMarkbtn from '../Bookmark/bookmarkbtn.jsx'
 import Talkbtn from '../../Talks/TalkStack/joinTalk.jsx'
-const menu = (
-  <Menu>
-    <Menu.Item key="0">
-      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-        Follow 
-      </a>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-        Edit post
-      </a>
-    </Menu.Item>
-    <Menu.Item key="2">
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-        Delete post
-      </a>
-    </Menu.Item>
-    <Menu.Item key="3">
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-        Report content
-      </a>
-    </Menu.Item>
-  </Menu>
-);
+import DeleteFeed from '../deleteFeed'
+import Followbtn from '../../Follow/followbtn'
+
+const localLink = 'http://localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const style = { background: '', padding: '8px 0' };
 class NewsFeedTemp extends React.Component {
   state = {
@@ -56,7 +37,7 @@ class NewsFeedTemp extends React.Component {
 
   //GEt all user additional info
   UserDetails = async()=>{
-    const FetchAllDetails = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/by_id/${this.props.feedby}`)
+    const FetchAllDetails = await fetch(`${SeverLink}/Authentication/by_id/${this.props.feedby}`)
     const response = await FetchAllDetails.json()
     if(response.profiler){
       this.setState({UserDetails:response.profiler})
@@ -64,7 +45,7 @@ class NewsFeedTemp extends React.Component {
   }
    //GEt feedMedia
    Feedmedia = async()=>{
-    const FetchAllMedia = await fetch(`https://still-cove-26148.herokuapp.com/Feed/${this.props.id}`)
+    const FetchAllMedia = await fetch(`${SeverLink}/Feed/${this.props.id}`)
     const response = await FetchAllMedia.json()
     if(response.results){
       this.setState({feedMedia:response.results})
@@ -126,7 +107,38 @@ class NewsFeedTemp extends React.Component {
     return time;
   }
   render() {
-    
+    const {feedby,loggedIn,id} = this.props
+    const menu = (
+      <Menu>
+        <Menu.Item key="0">
+          {
+            loggedIn !== feedby ?
+              <Followbtn userid={feedby} followtype={'people'}/>
+              : null
+          }
+          
+        </Menu.Item>
+        {/* <Menu.Item key="1">
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+            Edit post
+          </a>
+        </Menu.Item> */}
+        
+        <Menu.Item key="2">
+        {
+            loggedIn === feedby ?
+            <DeleteFeed address={id} posteby={feedby}/>
+              : null
+          }
+          
+        </Menu.Item>
+        {/* <Menu.Item key="3">
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+            Report content
+          </a>
+        </Menu.Item> */}
+      </Menu>
+    );
     return (
       <div className="demo-infinite-container">
         <InfiniteScroll
@@ -148,7 +160,12 @@ class NewsFeedTemp extends React.Component {
                     <div className="tl">
                       <a href={`${this.state.UserDetails.username}.pal`}><span className="ttc fw6 feedname ">{this.state.UserDetails.fullname}</span></a>
                       
-                      <span className="blue ml2"><CheckCircleFilled /></span>
+                      {
+                        this.state.UserDetails.verified === 1?
+                        <span className="blue ml2"><CheckCircleFilled /></span>
+                        :null
+                      }
+                      
                      
                         <span className="gray ml1 f6">@{this.state.UserDetails.username}</span>
                         {/* time */}
@@ -162,7 +179,7 @@ class NewsFeedTemp extends React.Component {
                        {/* content text */}
                        <a href={`${this.props.id}.feed`} className="">
                        <div className="tl mt3">
-                       <p className="feedtxt">{this.props.feedTxt}</p>
+                       <p className="feedtxt br3 ba b--black-10 pa2 ">{this.props.feedTxt}</p>
                       
                         {/* content image */}
                         <div className="feed-images pointer">
@@ -184,7 +201,7 @@ class NewsFeedTemp extends React.Component {
                        </div>
                        </a>
                         {/* comment like icon */} 
-                        <div className="commetLike mt4  ml3 mr3 center w-70">
+                        <div className="commetLike mt4">
                         <Row gutter={16}>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
                                 <Reaction

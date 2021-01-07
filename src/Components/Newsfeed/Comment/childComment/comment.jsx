@@ -7,7 +7,8 @@ import ContentEditable from 'react-contenteditable'
 import CommentCrd from './childcommentcrd'
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-
+const localLink = 'http://localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 class ChildComment extends React.Component{
     constructor(){
@@ -48,7 +49,7 @@ class ChildComment extends React.Component{
        Postrpl= async()=>{
        if(this.state.html !==''){
         this.setState({loading:true})
-        const post_C = await fetch('https://still-cove-26148.herokuapp.com/Feed/replyFeed',{
+        const post_C = await fetch(`${SeverLink}/Feed/replyFeed`,{
           method:'POST',
           headers:{"Content-Type":"application/json",token:localStorage.token},
           body:JSON.stringify({
@@ -67,7 +68,7 @@ class ChildComment extends React.Component{
       }
 
       getAllrply = async()=>{
-        const fetchAll = await fetch(`https://still-cove-26148.herokuapp.com/Feed/getAllcommentsrply/${this.props.feed_id}/${this.props.comment_id}`)
+        const fetchAll = await fetch(`${SeverLink}/Feed/getAllcommentsrply/${this.props.feed_id}/${this.props.comment_id}`)
         const response = await fetchAll.json()
         if(response.rplys){
           this.setState({Allrplys:response.rplys})

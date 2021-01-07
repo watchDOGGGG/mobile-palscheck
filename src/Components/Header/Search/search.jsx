@@ -9,7 +9,14 @@ class  SearchField extends React.Component{
         super()
         this.state = {
             Searchinput : '',
-            
+            filterBoxstyle:{
+                width:"300px",
+                border:"none",
+                background:"none"
+            },
+            filterStyle:{
+                width:"430px"
+            },
             Users:[],
             pages:[],
             isLoggedIn:[],
@@ -26,14 +33,14 @@ class  SearchField extends React.Component{
         }
     }
      getLoggedInUser = async()=>{
-        const getLogginUser = await fetch('https://still-cove-26148.herokuapp.com/Authentication/User/LoggedIn',{
+        const getLogginUser = await fetch('https://still-cover-backend.uc.r.appspot.com/Authentication/User/LoggedIn',{
             headers:{token:localStorage.token}
         })
         const response = await getLogginUser.json()
         this.setState({isLoggedIn:response.loggedIn})
     }
      SearchUsers = async()=>{
-        const fetchAll = await fetch('https://still-cove-26148.herokuapp.com/Authentication/All/user')
+        const fetchAll = await fetch('https://still-cover-backend.uc.r.appspot.com/Authentication/All/user')
         const res = await fetchAll.json()
         if(res.result){
             this.setState({Users:res.result})
@@ -41,7 +48,7 @@ class  SearchField extends React.Component{
     }
 
     searchPages = async()=>{
-            const GetAllPage = await fetch('https://still-cove-26148.herokuapp.com/Page/')
+            const GetAllPage = await fetch('https://still-cover-backend.uc.r.appspot.com/Page/')
             const response = await GetAllPage.json()
             if(response.pages){
                this.setState({pages:response.pages})
@@ -66,11 +73,9 @@ class  SearchField extends React.Component{
         })
         return(
             <>
-            <div className="header-filter tl br3 mr4" style={this.state.filterStyle}>
-                    <input value={Searchinput} onChange={e => this.onSearchchange(e)} className="black searchInput" style={this.state.filterBoxstyle} type="text" placeholder={'search on palscheck'} />
-                    <button class="searchButton" href="#">
-                <SearchOutlined/>
-            </button>
+            <div className="header-filter tl br3 center" style={this.state.filterStyle}>
+                    <span className="f4 pointer"><SearchOutlined /></span>
+                    <input value={Searchinput} onChange={e => this.onSearchchange(e)} className="ml2 black" style={this.state.filterBoxstyle} type="text" placeholder={'search on palscheck'} />
                 </div>
                 {
                    searchVisible === true && Searchinput.length>0?

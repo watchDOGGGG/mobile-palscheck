@@ -8,7 +8,7 @@ useEffect(()=>{
 })
     
 const getPageOffers = async()=>{
-        const fetchOffers = await fetch(`https://still-cove-26148.herokuapp.com/Page/offers/${id}`)
+        const fetchOffers = await fetch(`https://still-cover-backend.uc.r.appspot.com/Page/offers/${id}`)
         const response = await fetchOffers.json()
         if(response.offers){
             setoffers(response.offers)

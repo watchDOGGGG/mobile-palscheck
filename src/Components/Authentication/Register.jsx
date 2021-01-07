@@ -4,9 +4,8 @@ import {Link} from 'react-router-dom'
 import { Button, notification } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import LOGO from '../Logo/logofav2.jsx'
-
 const localLink = 'http://localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 
 const optionsWithDisabled = [
     { label: 'male', value: 'male' },

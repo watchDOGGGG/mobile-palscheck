@@ -29,7 +29,7 @@ class Createpage extends React.Component {
         const { visible} = this.state;
         return (
           <>
-            <div className="fixed crePlb3 center tc">
+            <div className="absolute crePlb3 center">
             <Button type="primary" onClick={this.showModal}>
              Create Page
             </Button>

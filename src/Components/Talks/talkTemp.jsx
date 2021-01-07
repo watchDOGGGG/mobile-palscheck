@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import {Avatar} from 'antd';
 
+const localLink = 'localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const TalkTemp = ({address,user,txt,date,auth})=>{
 
     const [UserDT,setUserDetails] = useState([])
@@ -13,7 +15,7 @@ const TalkTemp = ({address,user,txt,date,auth})=>{
     },[])
   //GEt all user additional info
   const UserDetails = async()=>{
-    const FetchAllDetails = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/by_id/${user}`)
+    const FetchAllDetails = await fetch(`${SeverLink}/Authentication/by_id/${user}`)
     const response = await FetchAllDetails.json()
     if(response.profiler){
       setUserDetails(response.profiler)
@@ -100,7 +102,7 @@ const TalkTemp = ({address,user,txt,date,auth})=>{
               :
               <Avatar size={40} /> 
           }                          
-        <a href={`${UserDT.username}.pal`} className="dib ml1 fw4 gray f6 link">@{UserDT.username}</a>
+        <a href={`${UserDT.username}.pal`} className="dib ml1 fw4 gray f6 link">@{UserDT.fullname}</a>
           
         </div>
         <span className="db ml4 tj bg-light-blue pa1 br3 talk__txt">{txt}</span>

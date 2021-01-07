@@ -4,10 +4,12 @@ import { UserOutlined,ShoppingFilled,HeartFilled,FundFilled } from '@ant-design/
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
 import { Link } from 'react-router-dom';
 
-const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,notify_from})=>{
+const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,notify_from,notify_for})=>{
   const [userInfo,setUserInfo] = useState([])
+  const [userInfoFor,setUserInfoFor] = useState([])
   useEffect(()=>{
     UserDetails()
+    UserDetailsFor()
   })
 
   //GEt all user additional info
@@ -16,7 +18,7 @@ const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,noti
     if (notify_from === 'palscheck') {
       return (null)
     } else {
-      const FetchAllDetails = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/by_id/${notify_from}`)
+      const FetchAllDetails = await fetch(`https://still-cover-backend.uc.r.appspot.com/Authentication/by_id/${notify_from}`)
       const response = await FetchAllDetails.json()
       
       if (response.profiler) {
@@ -25,7 +27,19 @@ const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,noti
     }
 
   }
+  const UserDetailsFor = async () => {
+    if (notify_from === 'palscheck') {
+      return (null)
+    } else {
+      const FetchAllDetails = await fetch(`https://still-cover-backend.uc.r.appspot.com/Authentication/by_id/${notify_for}`)
+      const response = await FetchAllDetails.json()
+      
+      if (response.profiler) {
+        setUserInfoFor(response.profiler)
+      }
+    }
 
+  }
    // convey Time Frame
    const time_ago = (time) =>{
 
@@ -89,7 +103,7 @@ const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,noti
           notify_action === 'following' ?
             // {/* notification from users action following*/}
             <li className="bb b--black-10">
-              <Link to={`${addressFrom}.pal`}>
+              <Link to={`${userInfo.username}.pal`}>
                 <div class="dt flex pa1">
                   <div class="dib ml2">
                     <p class="lh-copy">
@@ -109,7 +123,7 @@ const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,noti
                     <div class="dib">
                       {
                         userInfo.profileimg?
-                        <Avatar src={userInfo.url} size={'large'} icon={<UserOutlined />} />
+                        <Avatar src={userInfo.profileimg} size={'large'} icon={<UserOutlined />} />
                         :
                         <Avatar size={'large'} icon={<UserOutlined />} />
                         

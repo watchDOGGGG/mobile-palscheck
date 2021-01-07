@@ -8,31 +8,8 @@ import Comments from '../Comment/Comments.jsx'
 import Reaction from '../Reaction/reaction.jsx'
 import BookMarkbtn from '../Bookmark/bookmarkbtn.jsx'
 import Talkbtn from '../../Talks/TalkStack/joinTalk.jsx'
+import Followbtn from '../../Follow/followbtn'
 
-const menu = (
-  <Menu>
-    <Menu.Item key="0">
-      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-        Follow 
-      </a>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-        Edit post
-      </a>
-    </Menu.Item>
-    <Menu.Item key="2">
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-        Delete post
-      </a>
-    </Menu.Item>
-    <Menu.Item key="3">
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-        Report content
-      </a>
-    </Menu.Item>
-  </Menu>
-);
 const style = { background: '', padding: '8px 0' };
 class NewsFeedTemp extends React.Component {
   state = {
@@ -79,7 +56,7 @@ class NewsFeedTemp extends React.Component {
   };
   //GEt all user additional info
   UserDetails = async()=>{
-    const FetchAllDetails = await fetch(`https://still-cove-26148.herokuapp.com/Page/getD/${this.props.feedby}`)
+    const FetchAllDetails = await fetch(`https://still-cover-backend.uc.r.appspot.com/Page/getD/${this.props.feedby}`)
     const response = await FetchAllDetails.json()
     if(response.data){
       this.setState({UserDetails:response.data})
@@ -88,7 +65,7 @@ class NewsFeedTemp extends React.Component {
   }
    //GEt feedMedia
    Feedmedia = async()=>{
-    const FetchAllMedia = await fetch(`https://still-cove-26148.herokuapp.com/Feed/${this.props.id}`)
+    const FetchAllMedia = await fetch(`https://still-cover-backend.uc.r.appspot.com/Feed/${this.props.id}`)
     const response = await FetchAllMedia.json()
     if(response.results){
       this.setState({feedMedia:response.results})
@@ -150,6 +127,28 @@ class NewsFeedTemp extends React.Component {
     return time;
   }
   render() {
+    const menu = (
+      <Menu>
+        <Menu.Item key="0">
+          <Followbtn userid={this.props.id} followtype={'people'}/>
+        </Menu.Item>
+        <Menu.Item key="1">
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+            Edit post
+          </a>
+        </Menu.Item>
+        <Menu.Item key="2">
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+            Delete post
+          </a>
+        </Menu.Item>
+        <Menu.Item key="3">
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+            Report content
+          </a>
+        </Menu.Item>
+      </Menu>
+    );
     return (
       <div className="demo-infinite-container">
         <InfiniteScroll
@@ -206,7 +205,7 @@ class NewsFeedTemp extends React.Component {
                        </div>
                        </a>
                         {/* comment like icon */} 
-                        <div className="commetLike mt4  ml3 mr3 center w-70">
+                        <div className="commetLike mt4">
                         <Row gutter={16}>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
                                 <Reaction

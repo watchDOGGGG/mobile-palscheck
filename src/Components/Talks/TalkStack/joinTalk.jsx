@@ -9,7 +9,7 @@ const Talkbtn = ({feed_id}) =>{
     },[])
 
     const InsertUserToTalk = async()=>{
-        const fetchAll = await fetch('https://still-cove-26148.herokuapp.com/Talk/jointalk/user',{
+        const fetchAll = await fetch('https://still-cover-backend.uc.r.appspot.com/Talk/jointalk/user',{
             method:'POST',
             headers:{"Content-Type":"application/json",token:localStorage.token},
             body: JSON.stringify({

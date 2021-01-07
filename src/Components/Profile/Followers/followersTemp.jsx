@@ -13,7 +13,7 @@ const FollowersTemp = ({follow_from}) =>{
   })
       //GEt all user additional info
       const UserDetails = async()=>{
-        const FetchAllDetails = await fetch(`http://still-cove-26148.herokuapp.com/Authentication/by_id/${follow_from}`)
+        const FetchAllDetails = await fetch(`https://still-cover-backend.uc.r.appspot.com/Authentication/by_id/${follow_from}`)
           const response = await FetchAllDetails.json()
           if (response.profiler) {
               setUserDt(response.profiler)
@@ -21,7 +21,7 @@ const FollowersTemp = ({follow_from}) =>{
         }
         
      const getLoggedInUser = async()=>{
-    const getLogginUser = await fetch('http://still-cove-26148.herokuapp.com/Authentication/User/LoggedIn',{
+    const getLogginUser = await fetch('https://still-cover-backend.uc.r.appspot.com/Authentication/User/LoggedIn',{
         headers:{token:localStorage.token}
     })
     const response = await getLogginUser.json()

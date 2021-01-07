@@ -2,7 +2,7 @@ import { Input,Button } from 'antd'
 import React from 'react'
 
 const localLink = 'http://localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 class NewPassword extends React.Component{
 
     constructor(){

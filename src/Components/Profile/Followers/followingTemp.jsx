@@ -2,7 +2,8 @@ import Avatar from 'antd/lib/avatar/avatar'
 import React, { useState,useEffect } from 'react'
 import Followbtn from '../../Follow/followbtn.jsx'
 import {Link} from 'react-router-dom'
-
+const localLink = 'http://localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const Following = ({follow_to,loggedIn,follow_type}) =>{
   const [userDetail,setUserDt] = useState([])
   const [PageDetails,setPageDt] = useState([])
@@ -13,7 +14,7 @@ const Following = ({follow_to,loggedIn,follow_type}) =>{
   })
       //GEt all user additional info
       const UserDetails = async()=>{
-        const FetchAllDetails = await fetch(`http://still-cove-26148.herokuapp.com/Authentication/by_id/${follow_to}`)
+        const FetchAllDetails = await fetch(`${SeverLink}/Authentication/by_id/${follow_to}`)
           const response = await FetchAllDetails.json()
           if (response.profiler) {
               setUserDt(response.profiler)
@@ -21,7 +22,7 @@ const Following = ({follow_to,loggedIn,follow_type}) =>{
         }
         //GEt all data info for page post
    const pageData = async()=>{
-      const FetchAllDetails = await fetch(`http://still-cove-26148.herokuapp.com/Page/getD/${follow_to}`)
+      const FetchAllDetails = await fetch(`${SeverLink}/Page/getD/${follow_to}`)
       const response = await FetchAllDetails.json()
       if(response.data){
         setPageDt(response.data)

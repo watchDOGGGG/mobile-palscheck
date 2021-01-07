@@ -5,7 +5,7 @@ import Followbtn from '../../../Follow/followbtn.jsx'
 const Users =({result,isLoggedIn})=>{
 console.log(result)
     return(
-        result?
+        result.length > 0?
         result.map((user,i)=>{
             return(
                 <main class="mw6 center">
@@ -30,8 +30,6 @@ console.log(result)
                                     <div class="w-100 tr">
 
                                         <Followbtn userid={user._id} followtype={'people'}/>
-
-
                                     </div>
                                 </div>
                                 :

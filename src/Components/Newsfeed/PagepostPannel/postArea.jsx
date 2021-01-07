@@ -23,7 +23,7 @@ function getBase64(file) {
   });
 }
 const localLink = 'http://localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 
 class PostArea extends React.Component {
     constructor(){
@@ -193,7 +193,7 @@ class PostArea extends React.Component {
             onSelect={this.seTemoji} 
             theme="dark" 
             set='google'
-              style={{ position: 'absolute',zIndex:99 }} 
+              style={{ position: 'absolute',zIndex:99, marginTop:'39px' }} 
               title='Pick your emoji…' 
               emoji='point_up' i18n={{ search: 'search...', categories: { search: 'search emojis', recent: 'Recent' } }} 
               size={34}

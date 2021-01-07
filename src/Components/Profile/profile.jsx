@@ -8,7 +8,7 @@ import ProfileEdit from './EditProfile/edit.jsx'
 import Followbtn from '../Follow/followbtn.jsx'
 
 const localLink = 'http://localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 
 class Profile extends React.Component{
     constructor(){
@@ -38,7 +38,7 @@ class Profile extends React.Component{
         }else if(res.success){
             this.setState({errorpage:0})
         }
-        console.log(res)
+       
     }
 
     //getLoggedInuser
@@ -65,7 +65,6 @@ class Profile extends React.Component{
     }
     render(){
         const {errorpage} = this.state
-        console.log(this.state.errorpage)
         return(
             <div>
                 {
@@ -74,7 +73,7 @@ class Profile extends React.Component{
                     :
                     
                        <>
-                        <div className="main">
+                        <div className="main w-100">
                             {/* profileimage */ }
                         < div className="profile-cover  relative">
                         {
@@ -128,7 +127,7 @@ class Profile extends React.Component{
                         </div>
 
                         {/* profileNewsfeed */ }
-                        <div className="center">
+                        <div className="">
                             <ProfileNewsFeed 
                             address={ this.state.profiler.length > 0?
                             this.state.profiler[0]._id:null}
@@ -136,11 +135,12 @@ class Profile extends React.Component{
                             this.state.profiler[0].fullname:null}
                             id={ this.state.profiler.length > 0?
                                 this.state.profiler[0]._id:null}
+                                loggedIn = {this.state.isLoggedIn}
                             />
                         </div>
                         {
                             this.state.editroute === true?
-                            <div className="w-100 editing_panel fixed right-0">
+                            <div className="editing_panel fixed right-0">
                               <div className="edit_pane">
                                 {
                                     this.state.profiler.length >0?

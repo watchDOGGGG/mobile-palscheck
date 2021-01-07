@@ -24,7 +24,7 @@ const Footer = ()=>{
     }
     return (
         <footer class="">
-            <div class="">
+            <div class="mt1">
                 <a href="https://about.palscheck.com" onClick={e=>redirect('about')} title="Language" class="f6 ml2 dib mid-gray dim ttc ">About</a>
                 <a href="https://terms.palscheck.com/" onClick={e=>redirect('terms')} title="Terms" class="f6 ml2 dib mid-gray dim ttc">Terms of Use</a>
                 <a href="https://terms.palscheck.com/privacy" onClick={e=>redirect('privacy')} title="Privacy" class="f6 ml2 dib  mid-gray dim ttc">Privacy</a>

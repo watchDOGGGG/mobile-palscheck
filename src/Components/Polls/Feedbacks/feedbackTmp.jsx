@@ -12,7 +12,7 @@ useEffect(()=>{
 })
      //GEt all user additional info
   const UserDetails = async()=>{
-    const FetchAllDetails = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/by_id/${from}`)
+    const FetchAllDetails = await fetch(`https://still-cover-backend.uc.r.appspot.com/Authentication/by_id/${from}`)
       const response = await FetchAllDetails.json()
       if (response.profiler) {
           setUserDt(response.profiler)
@@ -20,7 +20,7 @@ useEffect(()=>{
     }
 
     const GetPoll = async()=>{
-        const FetchAllDetails = await fetch(`https://still-cove-26148.herokuapp.com/Feed/poll_id/${address}`)
+        const FetchAllDetails = await fetch(`https://still-cover-backend.uc.r.appspot.com/Feed/poll_id/${address}`)
       const response = await FetchAllDetails.json()
       if (response.poll) {
         setpoll(response.poll)

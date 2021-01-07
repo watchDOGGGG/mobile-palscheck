@@ -9,7 +9,7 @@ const CountFollow = ({userid})=>{
 
     //followers count
     const GetFollowersCount = async()=>{
-        const fetchAll = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/countfollowers/${userid}`)
+        const fetchAll = await fetch(`https://still-cover-backend.uc.r.appspot.com/Authentication/countfollowers/${userid}`)
         const response = await fetchAll.json()
         if(response.count){
             setfollowersCount(response.count)

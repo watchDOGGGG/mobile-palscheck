@@ -14,7 +14,7 @@ class TalkStack extends React.Component{
     }
 
     GEtAllTalks = async()=>{
-        const fetchAll = await fetch('https://still-cove-26148.herokuapp.com/Talk/',{
+        const fetchAll = await fetch('https://still-cover-backend.uc.r.appspot.com/Talk/',{
             headers:{token:localStorage.token}
         })
         const response = await fetchAll.json()
@@ -24,13 +24,13 @@ class TalkStack extends React.Component{
     }
     render(){
         return(
-            <div className="newfeed--3-art br3 center">
+            <div className="newfeed--3-art br3 center w-60">
                {
                    this.state.allTalks.length > 0?
                    <TalkCrd allTalk = {this.state.allTalks}/>
                    :
                    <>
-                   <p>you havn't join any talks yet</p>
+                   <p>No active Talks yet</p>
                    </>
                }
             </div>

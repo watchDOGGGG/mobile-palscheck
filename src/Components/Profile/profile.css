@@ -12,14 +12,15 @@
 
 .profile-card{
     position: relative;
-    top: -47px;
-    right: 0;
+    top: -40px;
+    left: 230px;
 }
 
 .main{
     display:block;
     position:relative;
     margin: 0 auto;
+    overflow: hidden;
 }
 .cover{
     display:block;
@@ -46,7 +47,8 @@
 .followbt{
     display:block;
     position: absolute;
-    top: 227px;
-    right: 24%;
+    top: 250px;
+    right: 40%;
+    
     z-index:8;
 }

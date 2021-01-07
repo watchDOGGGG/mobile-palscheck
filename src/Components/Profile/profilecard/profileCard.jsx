@@ -8,7 +8,7 @@ import {Modal} from 'antd';
 import Followers from '../Followers/followers.jsx'
 
 const localLink = 'localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 
 const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,region }) => {
 
@@ -98,7 +98,7 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
         </div>
     );
     return(
-        <article className="center pa3 pa4-ns b--black-10 ">
+        <article className="b--black-10 ">
         <div className="tc profile palscheck-p3 pa3">
             {
                 profileimg?
@@ -106,11 +106,11 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
                 :<Avatar src={defaultImg} className="dib" size={80}/>
             }
            
-                <span className="f6 db">{fullname}</span>
-                <span className="f6 db profile-cardUsername">@{username}</span>
+                <span className="f5 db f-name">{fullname}</span>
+                <span className="f6 db profile-cardUsername f-name2">@{username}</span>
             </div>
             <div class="flex profile-card">
-                <div class=" w-40 tc pa1 ba b--black-20 f-name">
+                <div class=" w-25 pa1 ba b--black-20 f-name">
                     <Popover placement="bottom" title={text} content={content} trigger="click">
                         <span className=" f6 pointer"><ProfileOutlined />
                 <span className="db">page</span>
@@ -122,7 +122,7 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
                     isLoggedIn === id ?
                     null:
                     isLoggedIn !== id?
-                    <div class=" w-40 tc pa1 ba b--black-20">
+                    <div class=" w-25 pa1 ba b--black-20">
                 <Poll username={fullname}
                     userid={id}
                 />
@@ -134,7 +134,7 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
                     isLoggedIn !== id ?
                     null:
                     isLoggedIn === id ?
-                    <div class=" w-40 tc pa1  ba b--black-20 f-name" >
+                    <div class=" w-25 pa1  ba b--black-20 f-name" >
                 <span className=" f6  pointer" onClick={(e)=>editroute(true)}><SettingOutlined />
                 <span className="db ">Edit</span>
                 </span>
@@ -143,7 +143,7 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
                 }
                 
             </div>
-        <div className="db f-name center flex ">
+        <div className="db flex f-name">
             {/* location */}
             <span className="lh-copy measure center f5  db ttc"><EnvironmentFilled /> Location</span>
             
@@ -153,7 +153,7 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
            
         </div>
 
-        <Row gutter={16} className="mt4 fw4">
+        <Row gutter={16} className="mt4 fw4 center">
             <Col span={8}>
             <Statistic title="Polls" value={pollCount} />
             </Col>

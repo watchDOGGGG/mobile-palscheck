@@ -15,7 +15,7 @@ class Notifications extends React.Component{
     }
     //fetch All notifications
     getNotifications = async()=>{
-        const fetchAll = await fetch('https://still-cove-26148.herokuapp.com/Authentication/all/notify',{
+        const fetchAll = await fetch('https://still-cover-backend.uc.r.appspot.com/Authentication/all/notify',{
             headers:{token:localStorage.token}
         })
         const response = await fetchAll.json()

@@ -9,11 +9,8 @@ import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import io from 'socket.io-client'
 
-const socket = io.connect('https://still-cove-26148.herokuapp.com')
-
 const localLink = 'http://localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
-
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 class Comments extends React.Component{
     constructor(){
@@ -23,35 +20,19 @@ class Comments extends React.Component{
             emojiVisbility:false,
             commentTxt:[],
             Allcomments:[],
-            loading: false,
-            isLoggedIn:[],error:[]
+            loading: false
         }
     }
 
-    componentDidMount(){
-      this.getLoggedInUser()
-      
-    }
     
-    componentDidUpdate(){
-      try {
-        setInterval(() => {
-          this.getAllcomment()
-        }, 1000);
-          
-      } catch (error) {
+    componentDidMount(){
+      setInterval(() => {
+        this.getAllcomment()
+      }, 1000);
         
-      }
         
     }
-    //get loggedin user
-   getLoggedInUser = async()=>{
-        const getLogginUser = await fetch(`${SeverLink}/Authentication/User/LoggedIn`,{
-            headers:{token:localStorage.token}
-        })
-        const response = await getLogginUser.json()
-        this.setState({isLoggedIn:response.loggedIn})
-    }
+  
      //setting Emoji
        handleTxtChange = evt => {
         this.setState({html:evt.target.value});
@@ -70,28 +51,28 @@ class Comments extends React.Component{
         this.setState({emojiVisbility:false})
       }
       //post comments
-      SendComments = async()=>{
-        if(this.state.html !== ''){
-          socket.emit('comment',this.state.html,this.props.feed_by,this.state.isLoggedIn,this.props.feed_id)
-          socket.on('success',(data)=>{
-            this.setState({html:'',loading:false,commentTxt:'posted....'})
+      PostComment = async()=>{
+        this.setState({loading:true})
+        const post_C = await fetch(`${SeverLink}/Feed/commentFeed`,{
+          method:'POST',
+          headers:{"Content-Type":"application/json",token:localStorage.token},
+          body:JSON.stringify({
+            to:this.props.feed_by,
+            txt:this.state.html,
+            feed_id:this.props.feed_id
           })
-          socket.on('error',(data)=>{
-            this.setState({loading:false,commentTxt:'',error:data})
-          })
+        })
+        const response = await post_C.json()
+        if(response.comments){
+          this.setState({html:''})
+          this.setState({commentTxt:'posted....'})
         }
       }
-
-      
        getAllcomment = async()=>{
-        try {
-          const fetchAll = await fetch(`${SeverLink}/Feed/getAllcomments/${this.props.feed_id}`)
+        const fetchAll = await fetch(`${SeverLink}/Feed/getAllcomments/${this.props.feed_id}`)
         const response = await fetchAll.json()
         if(response.comments){
           this.setState({Allcomments:response.comments})
-        }
-        } catch (error) {
-          
         }
       }
 
@@ -130,7 +111,7 @@ class Comments extends React.Component{
               <Tooltip title="send">
                 {
                  html.length > 0?
-                  <span className="dib ml3 f6 pointer blue lh-copy mt1 b" onClick={this.SendComments}>post
+                  <span className="dib ml3 f6 pointer blue lh-copy mt1 b" onClick={this.PostComment}>post
                   {
                     loading === true?
                     <Spin indicator={antIcon} />
@@ -143,7 +124,6 @@ class Comments extends React.Component{
                   </Tooltip>
                 </div>
                 <p>{this.state.commentTxt}</p>
-                <p className="red">{this.state.error}</p>
                 <CommentCrd All_comments={this.state.Allcomments}/>
             </div>
             

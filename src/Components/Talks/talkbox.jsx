@@ -3,9 +3,7 @@ import ContentEditable from 'react-contenteditable'
 import {SendOutlined} from '@ant-design/icons';
 import io from 'socket.io-client'
 
-const socket = io.connect('https://still-cove-26148.herokuapp.com')
-const localLink = 'http://localhost:4000'
-const SeverLink = 'https://still-cove-26148.herokuapp.com'
+const socket = io.connect('https://still-cover-backend.uc.r.appspot.com')
 class TalkBox extends React.Component{
 
     constructor(){
@@ -13,28 +11,14 @@ class TalkBox extends React.Component{
         this.state = {
             html: "",
             error:'',
-            isLoggedIn:[]
         }
     }
-    componentDidMount(){
-        this.getLoggedInUser()
-        
-      }
-
-      //get loggedin user
-   getLoggedInUser = async()=>{
-    const getLogginUser = await fetch(`${SeverLink}/Authentication/User/LoggedIn`,{
-        headers:{token:localStorage.token}
-    })
-    const response = await getLogginUser.json()
-    this.setState({isLoggedIn:response.loggedIn})
-}
-
+    
     handleTxtChange = evt => {
         this.setState({ html: evt.target.value });
       };
-
-    sendMsg = async()=>{
+      
+      sendMsg = async()=>{
         socket.emit('talks',this.props.address,this.state.html,this.state.isLoggedIn)
         socket.on('success',data=>{
             this.setState({ html: ''});
@@ -48,8 +32,8 @@ class TalkBox extends React.Component{
         const {error} = this.state
         return(
            <>
-            <div id="chat-container w-100">
-                <div className="chat-box center fixed bottom-0 w-100">
+            <div id="chat-container">
+                <div className="chat-box center fixed bottom-0" style={{width:'35%'}}>
                     <ContentEditable
             innerRef={this.contentEditable}
             html={this.state.html} // innerHTML of the editable div

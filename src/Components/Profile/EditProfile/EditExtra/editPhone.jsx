@@ -9,7 +9,7 @@ const Phone = ()=>{
 
     const onSetPhone = async()=>{
         if (value.length > 1) {
-            const setNum= await fetch('https://still-cove-26148.herokuapp.com/Patch/phone',{
+            const setNum= await fetch('https://still-cover-backend.uc.r.appspot.com/Patch/phone',{
                 method:'PATCH',
                 headers:{'Content-Type':'application/json',token:localStorage.token},
                 body:JSON.stringify({

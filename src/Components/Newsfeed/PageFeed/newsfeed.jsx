@@ -16,7 +16,7 @@ class NewsFeed extends React.Component{
         this.FetchAllFeed()
     }
     FetchAllFeed = async()=>{
-        const FetchAll = await fetch(`https://still-cove-26148.herokuapp.com/Feed/pageFeed/${this.props.id}`,)
+        const FetchAll = await fetch(`https://still-cover-backend.uc.r.appspot.com/Feed/pageFeed/${this.props.id}`,)
         const response = await FetchAll.json()
         if(response.results){
             this.setState({Feeds:response.results})
@@ -28,7 +28,7 @@ class NewsFeed extends React.Component{
         
         return(
 
-                <article class="newfeed--3-art center  b--black-10">
+                <article class="newfeed--3-art center pa3 pa4-ns ba b--black-10">
                 <Tabs defaultActiveKey="1">
                     <TabPane tab="palsFeed" key="1">
                         <PagePostPannel

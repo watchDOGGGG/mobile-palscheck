@@ -22,7 +22,7 @@ class About extends React.Component{
     }
     
     getPageOffers = async()=>{
-        const fetchOffers = await fetch(`https://still-cove-26148.herokuapp.com/Page/offers/${this.props.id}`)
+        const fetchOffers = await fetch(`https://still-cover-backend.uc.r.appspot.com/Page/offers/${this.props.id}`)
         const response = await fetchOffers.json()
         if(response.offers){
             this.setState({offers:response.offers})

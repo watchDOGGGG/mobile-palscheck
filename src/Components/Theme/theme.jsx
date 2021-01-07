@@ -34,9 +34,7 @@ a{
 .feedname{
     color: ${props=>props.theme.fontColor}
 }
-.palscheck-p3{
-    background-color: ${props=>props.theme.body}
-}
+
 .textarea_13l{
     color: ${props=>props.theme.fontColor}
 }

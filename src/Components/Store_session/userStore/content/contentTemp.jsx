@@ -36,7 +36,7 @@ const ContentTemp = ({feedid,feedby,price,desc,txt})=>{
 
        //GEt feedMedia
    const Feedmedia = async()=>{
-    const FetchAllMedia = await fetch(`https://still-cove-26148.herokuapp.com/Feed/${feedid}`)
+    const FetchAllMedia = await fetch(`https://still-cover-backend.uc.r.appspot.com/Feed/${feedid}`)
     const response = await FetchAllMedia.json()
     if(response.results){
       setfeedmedia(response.results)

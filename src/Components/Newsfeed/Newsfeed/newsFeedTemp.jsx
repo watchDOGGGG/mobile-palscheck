@@ -8,31 +8,11 @@ import Comments from '../Comment/Comments.jsx'
 import Reaction from '../Reaction/reaction.jsx'
 import BookMarkbtn from '../Bookmark/bookmarkbtn.jsx'
 import Talkbtn from '../../Talks/TalkStack/joinTalk.jsx'
+import Followbtn from '../../Follow/followbtn'
+import DeleteFeed from '../deleteFeed'
+const localLink = 'localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 
-const menu = (
-  <Menu>
-    <Menu.Item key="0">
-      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-        Follow 
-      </a>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-        Edit post
-      </a>
-    </Menu.Item>
-    <Menu.Item key="2">
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-        Delete post
-      </a>
-    </Menu.Item>
-    <Menu.Item key="3">
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-        Report content
-      </a>
-    </Menu.Item>
-  </Menu>
-);
 const style = { background: '', padding: '8px 0' };
 class NewsFeedTemp extends React.Component {
   state = {
@@ -52,18 +32,19 @@ class NewsFeedTemp extends React.Component {
   };
 
   componentDidMount() {
-    try {
-      this.UserDetails()
-    this.Feedmedia()
-    this.pageData()
-    } catch (error) {
       
-    }
+      setInterval(() => {
+        this.UserDetails()
+        this.Feedmedia()
+      }, 1000);
+      if(this.props.feedType === 'pageFeed'){
+        this.pageData()
+      }
   }
-
+ 
   //GEt all user additional info
   UserDetails = async()=>{
-    const FetchAllDetails = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/by_id/${this.props.feedby}`)
+    const FetchAllDetails = await fetch(`${SeverLink}/Authentication/by_id/${this.props.feedby}`)
     const response = await FetchAllDetails.json()
     if(response.profiler){
       this.setState({UserDetails:response.profiler})
@@ -71,7 +52,7 @@ class NewsFeedTemp extends React.Component {
   }
     //GEt all data info for page post
     pageData = async()=>{
-      const FetchAllDetails = await fetch(`https://still-cove-26148.herokuapp.com/Page/${this.props.feedby}`)
+      const FetchAllDetails = await fetch(`${SeverLink}/Page/${this.props.feedby}`)
       const response = await FetchAllDetails.json()
       if(response.data){
         this.setState({PageDetails:response.data})
@@ -79,7 +60,7 @@ class NewsFeedTemp extends React.Component {
     }
    //GEt feedMedia
    Feedmedia = async()=>{
-    const FetchAllMedia = await fetch(`https://still-cove-26148.herokuapp.com/Feed/${this.props.id}`)
+    const FetchAllMedia = await fetch(`${SeverLink}/Feed/${this.props.id}`)
     const response = await FetchAllMedia.json()
     if(response.results){
       this.setState({feedMedia:response.results})
@@ -142,6 +123,38 @@ class NewsFeedTemp extends React.Component {
     return time;
   }
   render() {
+    const {feedby,loggedIn,id} = this.props
+    const menu = (
+      <Menu>
+        <Menu.Item key="0">
+          {
+            loggedIn !== feedby ?
+              <Followbtn userid={feedby} followtype={'people'}/>
+              : null
+          }
+          
+        </Menu.Item>
+        {/* <Menu.Item key="1">
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+            Edit post
+          </a>
+        </Menu.Item> */}
+        
+        <Menu.Item key="2">
+        {
+            loggedIn === feedby ?
+            <DeleteFeed address={id} posteby={feedby}/>
+              : null
+          }
+          
+        </Menu.Item>
+        {/* <Menu.Item key="3">
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+            Report content
+          </a>
+        </Menu.Item> */}
+      </Menu>
+    );
     return (
       <div className="demo-infinite-container">
         <InfiniteScroll
@@ -159,29 +172,34 @@ class NewsFeedTemp extends React.Component {
                   
                      <Avatar src={this.state.UserDetails.profileimg} style={{float:'left',marginRight:'15px'}}size={40}/>
                    
-                    <div className=" pa2"> 
+                    <div className="right-side pa2"> 
                     {/* profile name */}
-                    <div className="tl pa2 center">
+                    <div className="tl">
                       <a style={{color:'inherit'}} href={`${this.state.UserDetails.username}.pal`}><span className="ttc fw6 feedname ">{this.state.UserDetails.fullname}</span></a>
-                      <span className="blue ml2"><CheckCircleFilled /></span>
+                      {
+                        this.state.UserDetails.verified === 1?
+                        <span className="blue ml2"><CheckCircleFilled /></span>
+                        :null
+                      }
+                      
                         <span className="gray ml1 f6">@{this.state.UserDetails.username}</span>
-                       <Dropdown overlay={menu}>
-                          <a onClick={e => e.preventDefault()} className="feedmenu b f3 ml3 ant-dropdown-link" style={{float:'right', lineHeight:0}}><EllipsisOutlined /></a>
+                        {/* time */}
+                        {/* <Dropdown overlay={menu}>
+                          <a onClick={e => e.preventDefault()} className="feedmenu b f3 ml3 ant-dropdown-link"><EllipsisOutlined /></a>
                         </Dropdown>
+                         */}
                         <span className="feedtime">{this.time_ago(new Date(this.props.date))}</span>
-                         {/* time */}
-                         
                         
                     </div>
                        {/* content text */}
                        <a href={`${this.props.id}.feed`} className="">
                        <div className="tl mt3">
-                       <p className="feedtxt">{this.props.feedTxt}</p>
+                       <p className="feedtxt br3 ba b--black-10 pa2 ">{this.props.feedTxt}</p>
                       
                         {/* content image */}
                         <div className="feed-images pointer">
                           
-                        <Carousel effect="fade" autoplay>
+                        <Carousel autoplay>
                               {
                                 this.state.feedMedia.length !== 0?
                                 this.state.feedMedia.map((element,i)=>{
@@ -198,7 +216,7 @@ class NewsFeedTemp extends React.Component {
                        </div>
                        </a>
                         {/* comment like icon */} 
-                        <div className="commetLike mt4 ml3 mr3 center w-70">
+                        <div className="commetLike mt4">
                         <Row gutter={16}>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
                                 <Reaction
@@ -236,16 +254,19 @@ class NewsFeedTemp extends React.Component {
                   
                     <Avatar src={this.state.PageDetails.profileImg} style={{float:'left',marginRight:'15px'}}size={40}/>
                    
-                  <div className=""> 
+                  <div className="right-side pa2"> 
                     {/* profile name */}
-                    <div className="tl pa2 center">
-                      <a style={{color:'inherit'}} href={`${this.state.PageDetails.address}.page`}><span className="ttc fw6 feedname db"><span className="gray ml1 f6"># </span>{this.state.PageDetails.name}</span></a>
-
-                        <span className="feedtime">{this.time_ago(new Date(this.props.date))}</span>
-                         {/* time */}
-                         <Dropdown overlay={menu}>
+                    <div className="tl">
+                      <a style={{color:'inherit'}} href={`${this.state.PageDetails.address}.page`}><span className="ttc fw6 feedname "><span className="gray ml1 f6"># </span>{this.state.PageDetails.name}</span></a>
+                      
+                        
+                        {/* time */}
+                        {/* <Dropdown overlay={menu}>
                           <a onClick={e => e.preventDefault()} className="feedmenu b f3 ml3 ant-dropdown-link"><EllipsisOutlined /></a>
-                        </Dropdown>
+                        </Dropdown> */}
+                        
+                        <span className="feedtime">{this.time_ago(new Date(this.props.date))}</span>
+                        
                     </div>
                        {/* content text */}
                        <a href={`${this.props.id}.feed`} className="">
@@ -255,7 +276,7 @@ class NewsFeedTemp extends React.Component {
                         {/* content image */}
                         <div className="feed-images pointer">
                           
-                        <Carousel effect="fade" autoplay>
+                        <Carousel autoplay>
                               {
                                 this.state.feedMedia.length !== 0?
                                 this.state.feedMedia.map((element,i)=>{
@@ -272,7 +293,7 @@ class NewsFeedTemp extends React.Component {
                        </div>
                        </a>
                         {/* comment like icon */} 
-                        <div className="commetLike mt4  ml3 mr3 center w-70">
+                        <div className="commetLike mt4">
                         <Row gutter={16}>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
                                 <Reaction

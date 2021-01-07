@@ -1,5 +1,7 @@
 import React, { useState,useEffect } from 'react'
 
+const localLink = 'http://localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const Followbtn =({userid,followtype})=>{
     
     const [btnroute,setbtnroute] = useState(0)
@@ -14,7 +16,7 @@ const Followbtn =({userid,followtype})=>{
     
     //checkIFUsers are following
     const CheckFollowing = async()=>{
-        const Start = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/checkfollow/${userid}`,{
+        const Start = await fetch(`${SeverLink}/Authentication/checkfollow/${userid}`,{
             headers:{token:localStorage.token}
         })
         const response = await Start.json()
@@ -27,7 +29,7 @@ const Followbtn =({userid,followtype})=>{
     }
     //startFollowwing
     const startFollowing = async()=>{
-        const Start = await fetch(`https://still-cove-26148.herokuapp.com/Authentication/follow/${userid}`,{
+        const Start = await fetch(`${SeverLink}/Authentication/follow/${userid}`,{
             method:'POST',
             headers:{'Content-Type':'application/json',token:localStorage.token},
             body: JSON.stringify({

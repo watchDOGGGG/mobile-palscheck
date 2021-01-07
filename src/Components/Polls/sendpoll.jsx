@@ -31,7 +31,7 @@ class Poll extends React.Component {
   };
 
   Sendpoll = async()=>{
-      const sendpoll = await fetch('https://still-cove-26148.herokuapp.com/Feed/post/poll',{
+      const sendpoll = await fetch('https://still-cover-backend.uc.r.appspot.com/Feed/post/poll',{
           method:'POST',
           headers:{"Content-Type":"application/json",token:localStorage.token},
           body: JSON.stringify({
