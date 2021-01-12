@@ -30,7 +30,7 @@ class TalkBox extends React.Component{
     }
     
     render(){
-        
+       
         return(
             <div id="chat-container">
                  {/* <p className="">

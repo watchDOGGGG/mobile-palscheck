@@ -6,7 +6,7 @@ import BookMark from '../Bookmark/BookMars/bookmark.jsx'
 import PageLoading from '../../Loading/homepageLoading'
 import io from 'socket.io-client'
 
-const Socket = io.connect('http://localhost:4000')
+const Socket = io.connect('https://still-cover-backend.uc.r.appspot.com')
 
 const localLink = 'http://localhost:4000'
 const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
@@ -27,15 +27,16 @@ class NewsFeed extends React.Component{
     }
     componentDidMount(){
      
-           Socket.on('FeedsForYou',data=>{
-            this.setState({Feeds:data})
-        })
+         
       
         
     }
  
   
     render(){
+        Socket.on('FeedsForYou',data=>{
+            this.setState({Feeds:data})
+        })
         if(this.props.following.length>0||this.props.loggedIn){
             Socket.emit('getFeed',this.props.following,this.props.loggedIn)
             
@@ -44,6 +45,7 @@ class NewsFeed extends React.Component{
         return(
 
                 <article class="newfeed--3-art ba b--black-10">
+           
                 <Tabs defaultActiveKey="1" centered>
                     <TabPane tab="palsFeed" key="1">
                         

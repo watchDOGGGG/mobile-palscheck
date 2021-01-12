@@ -4,6 +4,7 @@ import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import AdjustIcon from '@material-ui/icons/Adjust';
+import VideoUpload from './uploadVideo.jsx'
 import { Modal} from 'antd';
 import '../newsfeed.css'
 import PostArea from './postArea'
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     const [open, setOpen] = React.useState(false);
     const [hidden] = React.useState(false);
     const [visible,setVisible] = React.useState(false)
+   
 
     const handleClose = () => {
       setOpen(false);
@@ -54,7 +56,8 @@ const useStyles = makeStyles((theme) => ({
       setVisible(true);
     };
    
- 
+   
+   
     const handleCancel = e => {
       setVisible(false);
     };
@@ -63,6 +66,10 @@ const useStyles = makeStyles((theme) => ({
   }
  const actions = [
     { icon: <AdjustIcon onClick={showModal}/>, name: 'post to newsfeed' },
+    // { icon: <VideoUpload/>, name: 'upload video' },
+  // { icon: <PrintIcon />, name: 'Print' },
+  // { icon: <ShareIcon />, name: 'Share' },
+  // { icon: <FavoriteIcon />, name: 'Like' },
   ];
   
     return (

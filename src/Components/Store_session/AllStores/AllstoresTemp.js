@@ -23,7 +23,7 @@ class AllstoreTemp extends React.Component{
         const {pages} = this.state
         return(
             <div>
-               <div className="w-25 pa3 ml2 mt2 self-start">
+               <div className=" pa3 ml2 mt2 self-start">
                <Link to="/createpage" className="tl button blue db pointer"><button>Create page</button></Link>
                <a href="https://store.palscheck.com" className="tl button blue db pointer"><button>Store</button></a>
                </div>

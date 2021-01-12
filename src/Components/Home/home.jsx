@@ -27,7 +27,7 @@ componentDidMount(){
         const {userid} = this.props
         const {following} = this.state
         return(
-            <div className="flex justify-center">
+            <div className="justify-center">
                 {/* Newsfeed */}
                 <div className="feedlayout">
                     <Sugesstion following={following} loggedIn={userid}/>

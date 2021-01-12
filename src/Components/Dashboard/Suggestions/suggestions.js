@@ -18,17 +18,13 @@ class Suggestions extends React.Component{
     }
 
 
-    componentDidMount(){
+    render(){
         Socket.on('foundUsers',(data)=>{
             this.setState({suggestion:data})
         })
         Socket.on('foundSuggestions',(data)=>{
             this.setState({suggestionFirstTime:data})
         })
-     }
-        
-    
-    render(){
         const {following,loggedIn} = this.props
 
         if (this.props.following.length > 0) {

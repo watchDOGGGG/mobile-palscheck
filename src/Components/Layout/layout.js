@@ -11,7 +11,7 @@ import Followers from '../Profile/Followers/followers.jsx'
 import Store from '../Store_session/userStore/userStore'
 import CreatePage from '../Store_session/Create_store/createStore'
 import AllStore from '../Store_session/AllStores/Allstores'
-import Login from '../Authentication/Login.jsx'
+import Login from '../Authentication/welcome'
 import Talks from '../Talks/talks.jsx'
 import Talkstack from '../Talks/TalkStack/talks_stack.jsx'
 import Loading from '../Loading/loading.jsx'
@@ -23,6 +23,7 @@ import styled,{ThemeProvider} from 'styled-components'
 import {lightTheme,darkTheme,GlobalStyles} from '../Theme/theme.jsx'
 import CookieConsent, { Cookies } from "react-cookie-consent";
 import Footer from '../Footer/footer.jsx'
+import Search from '../Header/Search/search.jsx'
 const localLink = 'http://localhost:4000'
 const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 
@@ -194,6 +195,11 @@ class LayoutTemp extends React.Component {
                                         <Route path={`/delete/Account`} exact component={props =>
                                             Auth === 1 ?
                                                 <DeleteAcct UpdateAuth={this.UpdateAuth}/> :
+                                                <Redirect to={'/login'} />
+                                        } />
+                                        <Route path={`/search`} exact component={props =>
+                                            Auth === 1 ?
+                                                <Search /> :
                                                 <Redirect to={'/login'} />
                                         } />
                                         <Route path={`/login`} exact component={props =>

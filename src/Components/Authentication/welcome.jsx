@@ -73,12 +73,8 @@ class Welcome extends React.Component {
                     <header class="hero-header center">
                         <h1 class="hero-title f1 tc">Get connected, share what's new and keep up with trends</h1>
                     </header>
-                    <footer class="hero-footer">
-                        <a class="button button-primary" href="#">button one</a>
-                        <a class="button" href="#">button two</a>
-                    </footer>
                 </section>
-                <article className="arti_cont w-100 center ">
+                <article className="arti_cont w-100 center pa2">
                     <h2 className="b">For the next great business</h2>
                     <p className="f4">
                     Palscheck is a Nigeria social network that allow user's get connected in every part of the world. Palscheck also help's provide users with tools to build up business ideas either a large scale or small scale business. we provide an awsome feedline for users to express themselves sharing update of happening’s and live trends, current issues round the world, debate on them and join conversations of thousands of people.

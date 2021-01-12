@@ -103,7 +103,12 @@
 
 /* layout */
 
-
+.hero{
+	background-image: url('https://storage.googleapis.com/still-cover/developersFolder/pals-check-icon-blue-1920x720px.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
 .layout-footer{
 	position: fixed;
 	bottom: 0;
@@ -146,7 +151,7 @@ input[type=text]:focus{
 }
 .nav-con{
 	position: absolute;
-	top: 15%;
+	top: 5%;
 }
 .nav-con::-webkit-scrollbar {
 	width: 0.7em;
@@ -928,11 +933,13 @@ button.ghost {
   
   /* editing pannel */
   .editing_panel{
-    height: 100%;
-	z-index: 10;
-	top: 14%;
-	box-shadow: 52px 0px 61px 24px;
-	bottom: 10%;
+	height: 98%;
+    z-index: 10;
+    top: 14%;
+    box-shadow: 52px 0px 61px 24px;
+    bottom: 10%;
+    margin-bottom: 10%;
+    overflow: scroll;
   }
   .edit_pane{
 	height: 90%;

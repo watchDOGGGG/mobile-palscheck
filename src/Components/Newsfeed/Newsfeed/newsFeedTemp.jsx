@@ -1,6 +1,6 @@
 import React from 'react'
 import InfiniteScroll from 'react-infinite-scroller';
-import { Carousel, Avatar, Spin ,Menu, Dropdown } from 'antd';
+import { Carousel,Tooltip,Avatar, Spin ,Menu, Dropdown } from 'antd';
 import '../newsfeed.css'
 import { Row, Col } from 'antd';
 import {ShareAltOutlined,EllipsisOutlined,CheckCircleFilled} from '@ant-design/icons';
@@ -8,11 +8,11 @@ import Comments from '../Comment/Comments.jsx'
 import Reaction from '../Reaction/reaction.jsx'
 import BookMarkbtn from '../Bookmark/bookmarkbtn.jsx'
 import Talkbtn from '../../Talks/TalkStack/joinTalk.jsx'
-import Followbtn from '../../Follow/followbtn'
 import DeleteFeed from '../deleteFeed'
-const localLink = 'localhost:4000'
-const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
+import Followbtn from '../../Follow/followbtn'
 
+const localLink = 'http://localhost:4000'
+const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const style = { background: '', padding: '8px 0' };
 class NewsFeedTemp extends React.Component {
   state = {
@@ -27,21 +27,14 @@ class NewsFeedTemp extends React.Component {
       background: '#364d79',
     },
       UserDetails:[],
-      feedMedia:[],
-      PageDetails:[]
+      feedMedia:[]
   };
 
   componentDidMount() {
-      
-      setInterval(() => {
-        this.UserDetails()
-        this.Feedmedia()
-      }, 1000);
-      if(this.props.feedType === 'pageFeed'){
-        this.pageData()
-      }
+    this.UserDetails()
+    this.Feedmedia()
   }
- 
+
   //GEt all user additional info
   UserDetails = async()=>{
     const FetchAllDetails = await fetch(`${SeverLink}/Authentication/by_id/${this.props.feedby}`)
@@ -50,14 +43,6 @@ class NewsFeedTemp extends React.Component {
       this.setState({UserDetails:response.profiler})
     }
   }
-    //GEt all data info for page post
-    pageData = async()=>{
-      const FetchAllDetails = await fetch(`${SeverLink}/Page/${this.props.feedby}`)
-      const response = await FetchAllDetails.json()
-      if(response.data){
-        this.setState({PageDetails:response.data})
-      }
-    }
    //GEt feedMedia
    Feedmedia = async()=>{
     const FetchAllMedia = await fetch(`${SeverLink}/Feed/${this.props.id}`)
@@ -66,7 +51,6 @@ class NewsFeedTemp extends React.Component {
       this.setState({feedMedia:response.results})
     }
   }
- 
    // convey Time Frame
     time_ago = (time) =>{
 
@@ -165,29 +149,30 @@ class NewsFeedTemp extends React.Component {
           useWindow={false}
         >
           <>
-          {
-            this.props.feedType === 'palsfeed'?
-<div className="feed-content mt4">
+          <div className="feed-content mt4">
                   {/* profile image */}
                   
                      <Avatar src={this.state.UserDetails.profileimg} style={{float:'left',marginRight:'15px'}}size={40}/>
+                  
                    
                     <div className="right-side pa2"> 
                     {/* profile name */}
                     <div className="tl">
-                      <a style={{color:'inherit'}} href={`${this.state.UserDetails.username}.pal`}><span className="ttc fw6 feedname ">{this.state.UserDetails.fullname}</span></a>
+                      <a href={`${this.state.UserDetails.username}.pal`}><span className="ttc fw6 feedname ">{this.state.UserDetails.fullname}</span></a>
+                      
                       {
                         this.state.UserDetails.verified === 1?
                         <span className="blue ml2"><CheckCircleFilled /></span>
                         :null
                       }
                       
+                     
                         <span className="gray ml1 f6">@{this.state.UserDetails.username}</span>
                         {/* time */}
-                        {/* <Dropdown overlay={menu}>
+                        <Dropdown overlay={menu}>
                           <a onClick={e => e.preventDefault()} className="feedmenu b f3 ml3 ant-dropdown-link"><EllipsisOutlined /></a>
                         </Dropdown>
-                         */}
+                        
                         <span className="feedtime">{this.time_ago(new Date(this.props.date))}</span>
                         
                     </div>
@@ -199,7 +184,7 @@ class NewsFeedTemp extends React.Component {
                         {/* content image */}
                         <div className="feed-images pointer">
                           
-                        <Carousel autoplay>
+                        <Carousel effect="fade" autoplay>
                               {
                                 this.state.feedMedia.length !== 0?
                                 this.state.feedMedia.map((element,i)=>{
@@ -239,84 +224,6 @@ class NewsFeedTemp extends React.Component {
                         </Row>
                         </div>
                         {/* comments */}
-                        <div className="ba b--black-10 mt2 pa2">
-                          <Comments 
-                          feed_id={this.props.id}
-                          feed_by={this.props.feedby}
-                          />
-                        </div>
-                </div>
-                </div>
-            :
-            this.props.feedType === 'pageFeed'?
-            <div className="feed-content mt4">
-                  {/* profile image */}
-                  
-                    <Avatar src={this.state.PageDetails.profileImg} style={{float:'left',marginRight:'15px'}}size={40}/>
-                   
-                  <div className="right-side pa2"> 
-                    {/* profile name */}
-                    <div className="tl">
-                      <a style={{color:'inherit'}} href={`${this.state.PageDetails.address}.page`}><span className="ttc fw6 feedname "><span className="gray ml1 f6"># </span>{this.state.PageDetails.name}</span></a>
-                      
-                        
-                        {/* time */}
-                        {/* <Dropdown overlay={menu}>
-                          <a onClick={e => e.preventDefault()} className="feedmenu b f3 ml3 ant-dropdown-link"><EllipsisOutlined /></a>
-                        </Dropdown> */}
-                        
-                        <span className="feedtime">{this.time_ago(new Date(this.props.date))}</span>
-                        
-                    </div>
-                       {/* content text */}
-                       <a href={`${this.props.id}.feed`} className="">
-                       <div className="tl mt3">
-                       <p className="feedtxt">{this.props.feedTxt}</p>
-                      
-                        {/* content image */}
-                        <div className="feed-images pointer">
-                          
-                        <Carousel autoplay>
-                              {
-                                this.state.feedMedia.length !== 0?
-                                this.state.feedMedia.map((element,i)=>{
-                                  return(
-                                    <img
-                                      style={this.state.contentStyle}
-                                      src={element.url}
-                                  />
-                                  )
-                                }):null
-                              }
-                        </Carousel>
-                        </div>
-                       </div>
-                       </a>
-                        {/* comment like icon */} 
-                        <div className="commetLike mt4">
-                        <Row gutter={16}>
-                            <Col className="gutter-row f4 feed-c-i pointer" span={6}>
-                                <Reaction
-                                feed_id={this.props.id}
-                                feed_by={this.props.feedby}
-                                />
-                            </Col>
-                            <Col className="gutter-row f4 feed-c-i pointer" span={6}>
-                              <Talkbtn
-                              feed_id={this.props.id}
-                              feed_by={this.props.feedby}
-                              />
-                               
-                            </Col>
-                            <Col className="gutter-row f4 feed-c-i pointer" span={6}>
-                              <BookMarkbtn
-                              feed_id={this.props.id}
-                              feed_by={this.props.feedby}
-                              />
-                            </Col>
-                        </Row>
-                        </div>
-                        {/* comments */}
                         <div className="ba b--black-10 mt2 pa2 com3ts">
                           <Comments 
                           feed_id={this.props.id}
@@ -324,8 +231,7 @@ class NewsFeedTemp extends React.Component {
                           />
                         </div>
                 </div>
-                </div>:null
-          }
+                </div>
             {this.state.loading && this.state.hasMore && (
               <div className="demo-loading-container">
                 <Spin />
