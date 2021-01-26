@@ -7,6 +7,7 @@ const NewsFeedCard = ({AllFeeds,loggedIn})=>{
             {
                 AllFeeds.map((feeds,i)=>{
                     return(
+                        <div className="bb b--gray-10">
                         <NewsFeedTemp
                             key={i}
                             id={AllFeeds[i]._id}
@@ -18,6 +19,7 @@ const NewsFeedCard = ({AllFeeds,loggedIn})=>{
                             date={AllFeeds[i].date}
                             loggedIn={loggedIn}
                         />
+                        </div>
                     )
                 })
             }

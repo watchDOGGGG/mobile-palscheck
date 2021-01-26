@@ -1,13 +1,13 @@
 import React from 'react'
 import { Modal, Button } from 'antd';
 import {BorderlessTableOutlined } from '@ant-design/icons';
-import ContentEditable from 'react-contenteditable'
 
 class Poll extends React.Component {
   state = {
     loading: false,
     visible: false,
     html: "",
+    charLimit: 50
   };
   handleTxtChange = evt => {
     this.setState({ html: evt.target.value });
@@ -67,16 +67,15 @@ class Poll extends React.Component {
           </Button>
           ]}
         >
-            <ContentEditable
-            innerRef={this.contentEditable}
-            html={this.state.html} // innerHTML of the editable div
-            disabled={false}       // use true to disable editing
-            onChange={this.handleTxtChange} // handle innerHTML change
-            tagName='article' // Use a custom HTML tag (uses a div by default)
-            data-placeholder="write poll here..."
-            id="l557r_textarea"
-            spellcheck="true"
-            />
+          <input
+          onChange={this.handleTxtChange}
+          value={this.state.html}
+          type="text" maxLength="50" className="w-100 f4 h3 pa2" spellCheck={true}
+          onChange={this.handleTxtChange}
+          placeholder="write poll here......"
+          id="l557r_textarea"
+          />
+          <span className="f4 gray">Remaining Characters: {this.state.charLimit - this.state.html.length}</span>
         </Modal>
       </>
     );

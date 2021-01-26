@@ -1,18 +1,26 @@
 import React from 'react'
 import InfiniteScroll from 'react-infinite-scroller';
-import { Carousel,Tooltip,Avatar, Spin ,Menu, Dropdown } from 'antd';
+import { Carousel, Avatar, Spin ,Menu, Dropdown,Image} from 'antd';
 import '../newsfeed.css'
 import { Row, Col } from 'antd';
-import {ShareAltOutlined,EllipsisOutlined,CheckCircleFilled} from '@ant-design/icons';
+import {LoadingOutlined,EllipsisOutlined,CheckCircleFilled} from '@ant-design/icons';
 import Comments from '../Comment/Comments.jsx'
 import Reaction from '../Reaction/reaction.jsx'
 import BookMarkbtn from '../Bookmark/bookmarkbtn.jsx'
 import Talkbtn from '../../Talks/TalkStack/joinTalk.jsx'
-import DeleteFeed from '../deleteFeed'
 import Followbtn from '../../Follow/followbtn'
+import DeleteFeed from '../deleteFeed'
+import RandomString from 'randomstring'
+import ReadMoreReact from 'read-more-react';
 
-const localLink = 'http://localhost:4000'
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
+const Randstring  = RandomString.generate({
+  length:50
+})
+const localLink = 'localhost:4000'
 const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
+
 const style = { background: '', padding: '8px 0' };
 class NewsFeedTemp extends React.Component {
   state = {
@@ -27,14 +35,21 @@ class NewsFeedTemp extends React.Component {
       background: '#364d79',
     },
       UserDetails:[],
-      feedMedia:[]
+      feedMedia:[],
+      PageDetails:[]
   };
 
   componentDidMount() {
-    this.UserDetails()
-    this.Feedmedia()
+      
+      setInterval(() => {
+        this.UserDetails()
+        this.Feedmedia()
+      }, 1000);
+      if(this.props.feedType === 'pageFeed'){
+        this.pageData()
+      }
   }
-
+ 
   //GEt all user additional info
   UserDetails = async()=>{
     const FetchAllDetails = await fetch(`${SeverLink}/Authentication/by_id/${this.props.feedby}`)
@@ -43,6 +58,14 @@ class NewsFeedTemp extends React.Component {
       this.setState({UserDetails:response.profiler})
     }
   }
+    //GEt all data info for page post
+    pageData = async()=>{
+      const FetchAllDetails = await fetch(`${SeverLink}/Page/${this.props.feedby}`)
+      const response = await FetchAllDetails.json()
+      if(response.data){
+        this.setState({PageDetails:response.data})
+      }
+    }
    //GEt feedMedia
    Feedmedia = async()=>{
     const FetchAllMedia = await fetch(`${SeverLink}/Feed/${this.props.id}`)
@@ -51,6 +74,7 @@ class NewsFeedTemp extends React.Component {
       this.setState({feedMedia:response.results})
     }
   }
+ 
    // convey Time Frame
     time_ago = (time) =>{
 
@@ -139,6 +163,11 @@ class NewsFeedTemp extends React.Component {
         </Menu.Item> */}
       </Menu>
     );
+    const readMore = (
+      <span class=" black-60 underline-hover pointer f6">
+      see more...
+    </span>
+    )
     return (
       <div className="demo-infinite-container">
         <InfiniteScroll
@@ -149,25 +178,58 @@ class NewsFeedTemp extends React.Component {
           useWindow={false}
         >
           <>
-          <div className="feed-content mt4">
-                  {/* profile image */}
+          {
+            this.props.feedType === 'palsfeed'?
+<div className="feed-content mt4">
+       <div className="right-side pa2"> 
+                   
+                      
+                       <a className="">
+                       <div className="tl mt3">
+                        {/* content image */}
+                        <div className="feed-images pointer w-100">
+                        <Image.PreviewGroup>  
+                               <Carousel>
+                                 
+                              {
+                                this.state.feedMedia.length !== 0?
+                                this.state.feedMedia.map((element,i)=>{
+                                  return(
+                                    <Image
+                                      style={this.state.contentStyle}
+                                      src={element.url}
+                                  />
+                                  )
+                                }):<Spin indicator={antIcon} />
+                              }
+                        </Carousel>
+                        </Image.PreviewGroup>
+                         
+                        </div>
+                         {/* content text */}
+                        {
+                          this.props.feedTxt ? <p className="feedtxt pa2 "><ReadMoreReact text={this.props.feedTxt}
+                          min={80}
+                          ideal={90}
+                          max={1000}
+                            readMoreText={readMore} /></p> : null
+                        }
+
+                       </div>
+                       </a>
+                       {/* profile image */}
                   
                      <Avatar src={this.state.UserDetails.profileimg} style={{float:'left',marginRight:'15px'}}size={40}/>
-                  
-                   
-                    <div className="right-side pa2"> 
-                    {/* profile name */}
+                         {/* profile name */}
                     <div className="tl">
-                      <a href={`${this.state.UserDetails.username}.pal`}><span className="ttc fw6 feedname ">{this.state.UserDetails.fullname}</span></a>
-                      
-                      {
+                      <a style={{color:'inherit'}} href={`${this.state.UserDetails.username}.pal`}><span className="ttc fw6 feedname ">{this.state.UserDetails.fullname}</span></a>
+                      {/* {
                         this.state.UserDetails.verified === 1?
                         <span className="blue ml2"><CheckCircleFilled /></span>
                         :null
                       }
                       
-                     
-                        <span className="gray ml1 f6">@{this.state.UserDetails.username}</span>
+                        <span className="gray ml1 f6">@{this.state.UserDetails.username}</span> */}
                         {/* time */}
                         <Dropdown overlay={menu}>
                           <a onClick={e => e.preventDefault()} className="feedmenu b f3 ml3 ant-dropdown-link"><EllipsisOutlined /></a>
@@ -176,30 +238,6 @@ class NewsFeedTemp extends React.Component {
                         <span className="feedtime">{this.time_ago(new Date(this.props.date))}</span>
                         
                     </div>
-                       {/* content text */}
-                       <a href={`${this.props.id}.feed`} className="">
-                       <div className="tl mt3">
-                       <p className="feedtxt br3 ba b--black-10 pa2 ">{this.props.feedTxt}</p>
-                      
-                        {/* content image */}
-                        <div className="feed-images pointer">
-                          
-                        <Carousel effect="fade" autoplay>
-                              {
-                                this.state.feedMedia.length !== 0?
-                                this.state.feedMedia.map((element,i)=>{
-                                  return(
-                                    <img
-                                      style={this.state.contentStyle}
-                                      src={element.url}
-                                  />
-                                  )
-                                }):null
-                              }
-                        </Carousel>
-                        </div>
-                       </div>
-                       </a>
                         {/* comment like icon */} 
                         <div className="commetLike mt4">
                         <Row gutter={16}>
@@ -207,12 +245,15 @@ class NewsFeedTemp extends React.Component {
                                 <Reaction
                                 feed_id={this.props.id}
                                 feed_by={this.props.feedby}
+                                
                                 />
                             </Col>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
                             <Talkbtn
                               feed_id={this.props.id}
                               feed_by={this.props.feedby}
+                             title= {this.props.feedTxt.length > 0?this.props.feedTxt: Randstring}
+                              
                               />
                             </Col>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
@@ -224,7 +265,7 @@ class NewsFeedTemp extends React.Component {
                         </Row>
                         </div>
                         {/* comments */}
-                        <div className="ba b--black-10 mt2 pa2 com3ts">
+                        <div className="ba b--black-10 mt2 pa2">
                           <Comments 
                           feed_id={this.props.id}
                           feed_by={this.props.feedby}
@@ -232,6 +273,97 @@ class NewsFeedTemp extends React.Component {
                         </div>
                 </div>
                 </div>
+            :
+            this.props.feedType === 'pageFeed'?
+            <div className="feed-content mt4">
+            <div className="right-side pa2"> 
+                        
+                           
+                            <a className="">
+                            <div className="tl mt3">
+                             {/* content image */}
+                             <div className="feed-images pointer w-100">
+                             <Image.PreviewGroup>  
+                                    <Carousel>
+                                      
+                                   {
+                                     this.state.feedMedia.length !== 0?
+                                     this.state.feedMedia.map((element,i)=>{
+                                       return(
+                                         <Image
+                                           style={this.state.contentStyle}
+                                           src={element.url}
+                                       />
+                                       )
+                                     }):<Spin indicator={antIcon} />
+                                   }
+                             </Carousel>
+                             </Image.PreviewGroup>
+                              
+                             </div>
+                              {/* content text */}
+                             {
+                               this.props.feedTxt ? <p className="feedtxt pa2 "><ReadMoreReact text={this.props.feedTxt}
+                               min={80}
+                               ideal={90}
+                               max={1000}
+                                 readMoreText={readMore} /></p> : null
+                             }
+     
+                            </div>
+                            </a>
+                            {/* profile image */}
+                       
+                            <Avatar src={this.state.PageDetails.profileImg} style={{float:'left',marginRight:'15px'}}size={40}/>
+                              {/* profile name */}
+                         <div className="tl">
+                         <a style={{color:'inherit'}} href={`${this.state.PageDetails.address}.page`}><span className="ttc fw6 feedname "><span className="gray ml1 f6"># </span>{this.state.PageDetails.name}</span></a>
+                          
+                             {/* time */}
+                             <Dropdown overlay={menu}>
+                               <a onClick={e => e.preventDefault()} className="feedmenu b f3 ml3 ant-dropdown-link"><EllipsisOutlined /></a>
+                             </Dropdown>
+                             
+                             <span className="feedtime">{this.time_ago(new Date(this.props.date))}</span>
+                             
+                         </div>
+                             {/* comment like icon */} 
+                             <div className="commetLike mt4">
+                             <Row gutter={16}>
+                                 <Col className="gutter-row f4 feed-c-i pointer" span={6}>
+                                     <Reaction
+                                     feed_id={this.props.id}
+                                     feed_by={this.props.feedby}
+                                     
+                                     />
+                                 </Col>
+                                 <Col className="gutter-row f4 feed-c-i pointer" span={6}>
+                                 <Talkbtn
+                                   feed_id={this.props.id}
+                                   feed_by={this.props.feedby}
+                                  title= {this.props.feedTxt.length > 0?this.props.feedTxt: Randstring}
+                                   
+                                   />
+                                 </Col>
+                                 <Col className="gutter-row f4 feed-c-i pointer" span={6}>
+                                   <BookMarkbtn
+                                   feed_id={this.props.id}
+                                   feed_by={this.props.feedby}
+                                   />
+                                 </Col>
+                             </Row>
+                             </div>
+                             {/* comments */}
+                             <div className="ba b--black-10 mt2 pa2">
+                               <Comments 
+                               feed_id={this.props.id}
+                               feed_by={this.props.feedby}
+                               />
+                             </div>
+                     </div>
+                     </div>
+                     :null
+          }
             {this.state.loading && this.state.hasMore && (
               <div className="demo-loading-container">
                 <Spin />

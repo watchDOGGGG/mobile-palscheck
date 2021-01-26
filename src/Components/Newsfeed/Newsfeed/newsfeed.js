@@ -4,12 +4,10 @@ import { Tabs } from 'antd';
 import PostPannel from '../postPannel/postpannel';
 import BookMark from '../Bookmark/BookMars/bookmark.jsx'
 import PageLoading from '../../Loading/homepageLoading'
-import io from 'socket.io-client'
-
-const Socket = io.connect('https://still-cover-backend.uc.r.appspot.com')
 
 const localLink = 'http://localhost:4000'
 const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
+
 const { TabPane } = Tabs;
 
 const pollStyle = {
@@ -27,21 +25,33 @@ class NewsFeed extends React.Component{
     }
     componentDidMount(){
      
-         
-      
-        
+        setInterval(() => {
+
+        this.sendUsersToFetchFeed()
+        }, 2000);        
     }
  
-  
-    render(){
-        Socket.on('FeedsForYou',data=>{
-            this.setState({Feeds:data})
-        })
-        if(this.props.following.length>0||this.props.loggedIn){
-            Socket.emit('getFeed',this.props.following,this.props.loggedIn)
+    sendUsersToFetchFeed = async()=>{
+        
+        try {
+            const fetchFeed = await fetch(`${SeverLink}/Feed/getFeeds/forMe`,{
+                method: 'POST',
+                headers:{token:localStorage.token,"content-Type":"application/json"},
+                body:JSON.stringify({
+                    following:this.props.following
+                })
+            })
+            const res = await fetchFeed.json()
+            if(res.feeds){
+                this.setState({Feeds:res.feeds})
+            }
+        } catch (error) {
             
         }
-        
+    }
+  
+    render(){
+       
         return(
 
                 <article class="newfeed--3-art ba b--black-10">

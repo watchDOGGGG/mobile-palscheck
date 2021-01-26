@@ -91,7 +91,7 @@ styles={
                    <Link to="/polls" className="db f4 pa3 fw5"><span className="nav-icons mr3 f4 b"># </span>Polls</Link>
                    {
                        this.props.username ?
-                           <Link to={this.props.username === 'loading' ? null : `${this.props.username}.pal`}
+                           <Link to={this.props.username === 'loading' ? null : `/${this.props.username}.pal`}
                                className="db f4 pa3 fw5"><span className="nav-icons mr3 f4"><UserOutlined /></span>profile</Link>
                        :
                        <Link to={'/home'}

@@ -1,17 +1,18 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import {Avatar} from 'antd';
+
 
 const localLink = 'localhost:4000'
 const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 const TalkTemp = ({address,user,txt,date,auth})=>{
 
     const [UserDT,setUserDetails] = useState([])
-
+    
     useEffect(()=>{
       setInterval(() => {
         UserDetails()
       }, 500);
-      
+
     },[])
   //GEt all user additional info
   const UserDetails = async()=>{
@@ -25,8 +26,8 @@ const TalkTemp = ({address,user,txt,date,auth})=>{
    //GEt feedMedia
  
  
-   // convey Time Frame
-   const time_ago = (time) =>{
+  // convey Time Frame
+  const time_ago = (time) =>{
 
     switch (typeof time) {
       case 'number':
@@ -61,7 +62,7 @@ const TalkTemp = ({address,user,txt,date,auth})=>{
       token = 'ago',
       list_choice = 1;
   
-    if (seconds == 0) {
+    if (seconds === 0) {
       return 'Just now'
     }
     if (seconds < 0) {
@@ -87,30 +88,32 @@ const TalkTemp = ({address,user,txt,date,auth})=>{
       {
         auth?
         user === auth?
-        <p className="pa2" style={{float:'right',width:'60%'}}>
-        <span className="db ml4 tj bg-light-blue pa1 br3 talk__txt">{txt}</span>
-        <span className="ml1 f6 light-blue db">{time_ago(new Date(date))}</span>
-    </p>
+        <div class="message sag mtLine">
+      <div class="messageText" data-time="10:43">
+      {txt}
+      </div><div class="resim"></div>
+      <div class="dim small gray"><span>{time_ago(new Date(date))}</span></div>
+    </div>
         :
-        <p className="pa2" style={{float:'left',width:'60%'}}>
-         
-        <div className="tl">
-         
+        <div class="message sol">
+          <div className="db">
           {
             UserDT.profileimg?
             <Avatar src={UserDT.profileimg} size={'small'} /> 
               :
               <Avatar size={40} /> 
-          }                          
-        <a href={`${UserDT.username}.pal`} className="dib ml1 fw4 gray f6 link">@{UserDT.fullname}</a>
-          
-        </div>
-        <span className="db ml4 tj bg-light-blue pa1 br3 talk__txt">{txt}</span>
-        <span className="ml1 f6 light-blue">{time_ago(new Date(date))}</span>
-    </p>
+          } 
+          <a href={`${UserDT.username}.pal`} className="dib ml1 fw4 gray f6 link">@{UserDT.fullname}</a>
+          </div>
+
+      <div class="resim db"></div>
+      <div class="messageText4ot" data-time="10:42">
+      {txt}
+      </div>
+      <div class="dim small gray"><span>{time_ago(new Date(date))}</span></div>
+    </div>
         :null
       }
-
       </>
         
     )

@@ -1,7 +1,5 @@
 import React from 'react'
 import { BellOutlined,MessageOutlined,SearchOutlined,HomeOutlined } from '@ant-design/icons';
-
-import Logo from '../Logo/logofav3.jsx'
 import { Badge } from 'antd';
 import Menu from "./menu.jsx";
 
@@ -12,13 +10,16 @@ class Header extends React.Component{
         super()
         this.state={
             size: 'default',
-            notifyBadge:''
+            notifyBadge:'',
         }
     }
  //GEt all user additional info
 
  componentDidMount(){
-    this.getNotificationCount()
+     setInterval(() => {
+         this.getNotificationCount()
+     }, 1000);
+    
  }
 
 upDateToken = ()=>{
@@ -45,7 +46,8 @@ getNotificationCount = async()=>{
             <div className="mpalsHeader">
             <header>
                 <div>
-                    <span className="blue ml3 f5">Home</span>
+                   <span className="blue ml3 f5 ttc">{this.props.headerRoute}</span>
+                        
                     <span className="absolute right-1 mt1">
                          <Menu token={this.upDateToken} notifyBadge={notifyBadge} ProfileImg={this.props.ProfileImg} fullname={this.props.fullname} username={this.props.username}/>
                
@@ -59,10 +61,10 @@ getNotificationCount = async()=>{
                         <a href="/talks" className="f4 gray"><MessageOutlined /></a>
                     </li>
                     <li className="dib mr4 ">
-                        <a href="search" className="f4 gray"><SearchOutlined /></a>
+                        <a href="/search" className="f4 gray"><SearchOutlined /></a>
                     </li>
                     <li className="dib absolute right-1 ">
-                        <a href="notification" className="f4 gray">
+                        <a href="/notification" className="f4 gray">
                         <Badge size="default" count={notifyBadge} overflowCount={999}>
                                     <a href="#" className="head-example" />
                                 </Badge>

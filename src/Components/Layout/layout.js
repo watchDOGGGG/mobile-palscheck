@@ -1,7 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import './layout.css'
-import NavMenu from '../NavMenu/navmenu.jsx'
 import Header from '../Header/header.jsx'
 import Profile from '../Profile/profile.jsx'
 import Home from '../Home/home.jsx';
@@ -9,7 +8,7 @@ import SingleFeed from '../Newsfeed/singleFeed/singlefeed'
 import Notification from '../Notification/notifications'
 import Followers from '../Profile/Followers/followers.jsx'
 import Store from '../Store_session/userStore/userStore'
-import CreatePage from '../Store_session/Create_store/createStore'
+import CreatePage from '../Store_session/createPage/createPage'
 import AllStore from '../Store_session/AllStores/Allstores'
 import Login from '../Authentication/welcome'
 import Talks from '../Talks/talks.jsx'
@@ -38,7 +37,8 @@ class LayoutTemp extends React.Component {
             userID: [],
             isLoading: '',
             isLoggedIn:[],
-            theme: 'light'
+            theme: 'light',
+            headerRoute:'Palscheck'
 
         }
     }
@@ -99,7 +99,7 @@ class LayoutTemp extends React.Component {
         }
     }
     render() {
-        const {theme,Auth,userID,isLoggedIn} = this.state
+        const {theme,Auth,userID,isLoggedIn,headerRoute} = this.state
         return (
             <Router>
                 
@@ -119,6 +119,7 @@ class LayoutTemp extends React.Component {
                                                 fullname={!userID.fullname ?null : userID.fullname}
                                                 username={!userID.username ? null: userID.username}
                                                 UpdateAuth={this.UpdateAuth}
+                                                headerRoute={headerRoute}
                                             /></div> : null
                                     }
 
@@ -152,7 +153,7 @@ class LayoutTemp extends React.Component {
                                                 Profile :
                                                 <Redirect to={'/login'} />
                                         } />
-                                        <Route path={`/:id.feed`} exact component={
+                                        <Route path={`/:title/:id.feed`} exact component={
                                             Auth === 1 ?
                                                 SingleFeed :
                                                 <Redirect to={'/login'} />
@@ -167,7 +168,7 @@ class LayoutTemp extends React.Component {
                                                 Store :
                                                 <Redirect to={'/login'} />
                                         } />
-                                        <Route path={`/:id.talk`} exact component={
+                                       <Route path={`/:title/:id.talk`} exact component={
                                             Auth === 1 ?
                                                 Talks :
                                                 <Login UpdateAuth={this.UpdateAuth} />

@@ -7,7 +7,11 @@ import Comment from '../Comment/Comments.jsx'
 import Reaction from '../Reaction/reaction.jsx'
 import BookMarkbtn from '../Bookmark/bookmarkbtn.jsx'
 import Talkbtn from '../../Talks/TalkStack/joinTalk.jsx'
+import RandomString from 'randomstring'
 
+const Randstring  = RandomString.generate({
+  length:50
+})
 const localLink = 'localhost:4000'
 const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 
@@ -128,6 +132,7 @@ componentDidUpdate(){
     return time;
   }
   render() {
+    
     return (
           <>
           {
@@ -143,7 +148,7 @@ componentDidUpdate(){
                     <div className="right-side pa2"> 
                     {/* profile name */}
                     <div className="tl">
-                      <a href={`${this.state.UserDetails.username}.pal`}><span className="ttc fw6 feedname ">{this.state.UserDetails.fullname}</span></a>
+                      <a href={`/${this.state.UserDetails.username}.pal`}><span className="ttc fw6 feedname ">{this.state.UserDetails.fullname}</span></a>
                       {
                         this.state.UserDetails.verified === 1?
                         <span className="blue ml2"><CheckCircleFilled /></span>
@@ -158,7 +163,9 @@ componentDidUpdate(){
                     </div>
                        {/* content text */}
                        <div className="tl mt3">
-                       <p className="feedtxt br3 ba b--black-10 pa2">{this.state.feed.feedTxt}</p>
+                       {
+                       this.state.feed.feedTxt? <p className="feedtxt br3 ba b--black-10 pa2 ">{this.state.feed.feedTxt}</p>:null
+                          }
                       
                         {/* content image */}
                         <div className="feed-images pointer">
@@ -192,8 +199,9 @@ componentDidUpdate(){
                             </Col>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
                             <Talkbtn
-                              feed_id={this.props.id}
-                              feed_by={this.props.feedby}
+                              feed_id={this.props.address}
+                              feed_by={this.state.feed.feedby}
+                              title= {this.state.feed.feedTxt.length > 0?this.state.feed.feedTxt: Randstring}
                               />
                             </Col>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
@@ -222,7 +230,7 @@ componentDidUpdate(){
                     <div className="right-side pa2"> 
                     {/* profile name */}
                     <div className="tl">
-                    <a href={`${this.state.PageDetails.address}.page`}><span className="ttc fw6 feedname black"><span className="gray ml1 f6"># </span>{this.state.PageDetails.name}</span></a>
+                    <a href={`/${this.state.PageDetails.address}.page`}><span className="ttc fw6 feedname black"><span className="gray ml1 f6"># </span>{this.state.PageDetails.name}</span></a>
                
                         {/* time */}
                      
@@ -232,7 +240,9 @@ componentDidUpdate(){
                        {/* content text */}
                        <div className="tl mt3">
                        <p className="feedtxt">{this.state.feed.feedTxt}</p>
-                      
+          {
+                       this.state.feed.feedTxt? <p className="feedtxt br3 ba b--black-10 pa2 ">{this.state.feed.feedTxt}</p>:null
+                          }
                         {/* content image */}
                         <div className="feed-images pointer">
                           
@@ -262,8 +272,9 @@ componentDidUpdate(){
                             </Col>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>
                             <Talkbtn
-                              feed_id={this.props.id}
+                              feed_id={this.props.address}
                               feed_by={this.state.feed.feedby}
+                              title= {this.state.feed.feedTxt.length > 0?this.state.feed.feedTxt: Randstring}
                               />
                             </Col>
                             <Col className="gutter-row f4 feed-c-i pointer" span={6}>

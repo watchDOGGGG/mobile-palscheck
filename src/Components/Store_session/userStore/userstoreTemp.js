@@ -1,8 +1,7 @@
 import React from 'react'
 import { Tabs } from 'antd';
 import StoreLayout from './UserStoreFeed/storelayout'
-import Contents from './content/content.jsx'
-import About from './about/about'
+
 import Editing from '../EditPage/edit'
 
 const { TabPane } = Tabs;
@@ -17,6 +16,13 @@ class StoreTemp extends React.Component{
                     <StoreLayout
                     pagename = {this.props.name}
                     id = {this.props.id}
+                    ProfileImage={this.props.ProfileImage}
+                    about={this.props.about}
+                    address={this.props.address}
+                    websites = {this.props.websites}
+                    phone = {this.props.phone}
+                    country = {this.props.country}
+                    region = {this.props.region}
                     />
                 </TabPane>
                 {/* <TabPane tab="contents" key="2" className="">

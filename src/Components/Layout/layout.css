@@ -85,7 +85,7 @@
   }
   .layout-content{
     position: relative;
-    top:17%;
+    top:9%;
     z-index: 8;
     background-color: inherit;
     width: 100%;
@@ -759,6 +759,197 @@ button.ghost {
 	left: 0;
 	background-color: white;
 }
+
+.signup-container {
+	display: flex;
+	grid-template-areas: "left right";
+  }
+  
+  .left-container {
+	background: #807182;
+	background-image: url('https://www.socialhi5.com/images/business-listing.jpg');
+	background-size: cover;
+	background-position: center;
+	overflow: hidden;
+	padding: 40px 0 0 0;
+	position: relative;
+	text-align: center;
+	width: 320px;
+  }
+  .left-container h1 {
+	color: white;
+    display: inline-block;
+    font-size: 23px;
+    font-weight: bold;
+    top: 27%;
+    width: 80%;
+    display: flex;
+    right: 9%;
+    z-index: 9;
+    position: absolute;
+  }
+  .right_desc{
+	  z-index: 9;
+	  right: 2%;
+  }
+  .left-container h1 i {
+	background: #F7B1AB;
+	border-radius: 50%;
+	color: #807182;
+	font-size: 24px;
+	margin-right: 5px;
+	padding: 10px;
+	transform: rotate(-45deg);
+  }
+  .puppyoverlay{
+	background-color: #1890ff;
+    width: inherit;
+    position: fixed;
+    height: 538px;
+    max-height: inherit;
+    top: 70px;
+    opacity: 0.6;
+  }
+  .left-container .puppy {
+	bottom: -5px;
+	position: absolute;
+	text-align: center;
+  }
+  .left-container .puppy:before {
+	background: #807182;
+	
+	content: "";
+	height: 100%;
+	left: 0;
+	opacity: 0.4;
+	position: absolute;
+	width: 100%;
+	z-index: 1;
+  }
+
+  .right-container {
+	background: #ffffff;
+	display: grid;
+	grid-template-areas: "." ".";
+	width: 600px;
+	height: 539px;
+  }
+  .right-container h1:nth-of-type(1) {
+	color: rgba(0, 0, 0, 0.8);
+	font-size: 28px;
+	font-weight: 600;
+  }
+  .right-container .set {
+	display: flex;
+	justify-content: space-between;
+	margin: 10px 0;
+  }
+  .right-container input {
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 4px;
+	height: 38px;
+	line-height: 38px;
+	padding-left: 5px;
+  }
+  .right-container input, .right-container label {
+	color: rgba(0, 0, 0, 0.8);
+  }
+  .right-container header {
+	padding: 40px;
+  }
+  .right-container label, .right-container input, .right-container .pets-photo {
+	width: 176px;
+  }
+  .right-container .pets-photo {
+	align-items: center;
+	display: grid;
+	grid-template-areas: ". .";
+  }
+  .right-container .pets-photo button {
+	border: none;
+	border-radius: 50%;
+	height: 38px;
+	margin-right: 10px;
+	outline: none;
+	width: 38px;
+  }
+  .right-container .pets-photo button i {
+	color: rgba(0, 0, 0, 0.8);
+	font-size: 16px;
+  }
+  .right-container .pets-weight .radio-container {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+  }
+  .right-container footer {
+	align-items: center;
+	background: #fff;
+	display: grid;
+	    padding: 5px 40px;
+    position: relative;
+    bottom: 0;
+  }
+  .right-container footer button {
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	height: 38px;
+	line-height: 38px;
+	width: 100px;
+	border-radius: 19px;
+	font-family: "Montserrat", sans-serif;
+  }
+  .right-container footer #back {
+	background: #fff;
+	transition: 0.2s all ease-in-out;
+  }
+  .right-container footer #back:hover {
+	background: #171A2B;
+	color: white;
+  }
+  .right-container footer #next {
+	background: #807182;
+	border: 1px solid transparent;
+	color: #fff;
+  }
+  .right-container footer #next:hover {
+	background: #171A2B;
+  }
+  
+  .pets-name label, .pets-breed label, .pets-birthday label, .pets-gender label, .pets-spayed-neutered label, .pets-weight label {
+	display: block;
+	margin-bottom: 5px;
+  }
+  
+  .radio-container {
+	background: #fff;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 4px;
+	display: inline-block;
+	padding: 5px;
+  }
+  
+  .radio-container label {
+	background: transparent;
+	border: 1px solid transparent;
+	border-radius: 2px;
+	display: inline-block;
+	height: 26px;
+	line-height: 26px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	transition: 0.2s all ease-in-out;
+	width: 80px;
+  }
+  
+  .radio-container input[type=radio] {
+	display: none;
+  }
+  
+  .radio-container input[type=radio]:checked + label {
+	background: #F7B1AB;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+  }
 /* all business page */
 
 .thumbnail {
@@ -971,14 +1162,142 @@ button.ghost {
 }
   /* chat area */
   .talkq3e{
-	  height: 90vh;
-	  position: fixed;
-	  overflow-y: scroll;
-  }
-  .talk__txt{
-	  word-break: break-all;
-	  width: fit-content;
-  }
+	height: 90vh;
+	position: fixed;
+}
+.talk__txt{
+	word-break: break-all;
+	width: fit-content;
+}
+.chat-box{
+	z-index: 9;
+}
+.emojipop .ant-popover-inner-content {
+    padding: 0px;
+}
+.time {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.time span {
+  background-color: #000000;
+  display: inline-block;
+  border-radius: 3px;
+  text-align: center;
+  padding: 2px 20px;
+  color: #fff;
+  opacity: 0.3;
+}
+.message {
+  margin-bottom: 10px;
+}
+.message .messageText {
+  text-align: left;
+  color: #FFFFFF;
+}
+.message .messageText4ot{
+  text-align: left;
+  color: #FFFFFF;
+  background-color: #125da8;
+  vertical-align: text-top;
+  display: inline-block;
+  position: relative;
+  line-height: 17px;
+  max-width: 165px;
+  padding: 6px;
+}
+.message.sol {
+  text-align: left;
+}
+.message.sag {
+  text-align: right;
+}
+.message .resim {
+  display: inline-block;
+  position: relative;
+  color: #FFFFFF;
+  height: 40px;
+  width: 40px;
+}
+.message .messageText {
+  background-color: #3e4042;
+  vertical-align: text-top;
+  display: inline-block;
+  position: relative;
+  line-height: 17px;
+  max-width: 165px;
+  color: #FFFFFF;
+  padding: 6px;
+}
+.message.left .userPortrait,
+.message.sag .messageText {
+  border-radius: 5px 0 0 5px;
+}
+.message.sag .userPortrait,
+.message.sol .messageText {
+  border-radius: 0 5px 5px 0;
+}
+.message .messageText:before {
+  border-color: transparent#3e4042;
+  border-style: solid;
+  position: absolute;
+  border-width: 0;
+  display: block;
+  content: "";
+  z-index: 1;
+}
+.message .messageText4ot:before {
+  border-color: transparent#125da8;
+  border-style: solid;
+  position: absolute;
+  border-width: 0;
+  display: block;
+  content: "";
+  z-index: 1;
+}
+
+.message.sol .messageText4ot:before {
+  border-width: 0 10px 10px 0;
+  left: -10px;
+  top: 0;
+}
+.message.sag .messageText:before {
+  border-width: 10px 0 0 10px;
+  right: -10px;
+  top: 0px;
+}
+.message .messageText:after {
+  content: attr(data-time);
+  color: rgba(255,255,255,0.5);
+  position: absolute;
+  line-height: 20px;
+  display: block;
+  bottom: 2px;
+  z-index: 1;
+}
+.message.sol .messageText:after {
+  margin-left: 5px;
+  left: 100%;
+}
+.message.sag .messageText:after {
+  margin-right: 5px;
+  right: 100%;
+}
+.message.sag:last-child{
+  margin-bottom: 33%;
+}
+.chat-content::-webkit-scrollbar {
+width: 0.6em;
+}
+
+.chat-content::-webkit-scrollbar-track {
+box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.chat-content::-webkit-scrollbar-thumb {
+background-color: darkgrey;
+outline: 1px solid slategrey;
+}
   /* polls */
   .pollImg{
 	  position: absolute;

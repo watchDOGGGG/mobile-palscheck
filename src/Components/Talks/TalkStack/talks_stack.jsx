@@ -1,5 +1,7 @@
 import React from 'react'
-import TalkCrd from './talkCrd.jsx'
+import Helmet from '../../Helmet/helment'
+import RandomString from 'randomstring'
+import TrendTalks from '../../Dashboard/Trendings/trending'
 
 class TalkStack extends React.Component{
     constructor(){
@@ -24,10 +26,11 @@ class TalkStack extends React.Component{
     }
     render(){
         return(
-            <div className="newfeed--3-art br3 center">
+            <div className="newfeed--3-art br3 center w-100">
+                <Helmet title={'Talks'} description={'Everything in palscheck is a discussion'}/>
                {
                    this.state.allTalks.length > 0?
-                   <TalkCrd allTalk = {this.state.allTalks}/>
+                <TrendTalks/>
                    :
                    <>
                    <p>No active Talks yet</p>

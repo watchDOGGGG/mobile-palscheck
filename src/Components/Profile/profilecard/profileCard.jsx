@@ -10,6 +10,9 @@ import Followers from '../Followers/followers.jsx'
 const localLink = 'localhost:4000'
 const SeverLink = 'https://still-cover-backend.uc.r.appspot.com'
 
+const style={
+    border: '4px solid white'
+}
 const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,region }) => {
 
     const [pages,setpages] = useState([])
@@ -72,9 +75,7 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
             setpages(response.pages)
         }
     }
-   const redirectTopage=(address)=>{
-        window.location.href = `https://store.palscheck.com/${address}`;
-     }
+
     const text = <span>#pages</span>;
     const content = (
         <div>
@@ -82,7 +83,7 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
                 pages.length > 0 ?
                     pages.map((page,i)=>{
                         return(
-                            <a onClick={e=>redirectTopage(`${page.address}`)} className="flex bb b--black-10">
+                            <a href={`${page.address}.page`} className="flex bb b--black-10">
                                 
                                     <Avatar src={page.profileImg} size='small'/>
                                  
@@ -97,16 +98,18 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
             
         </div>
     );
-    return(
+    return (
         <article className="b--black-10 ">
-        <div className="tc profile palscheck-p3 pa3">
-            {
-                profileimg?
-                <Avatar src={profileimg} className="dib" size={80}/>
-                :<Avatar src={defaultImg} className="dib" size={80}/>
-            }
+            <div className="tc profile palscheck-p3 pa3">
+                {
+                    profileimg ?
+                        
+                    <Avatar src={profileimg} size={100} style={style}/>
+                        
+                        : <Avatar src={defaultImg} className="dib" size={80} />
+                }
            
-                <span className="f5 db f-name">{fullname}</span>
+                <span className="f5 db f-name mt3">{fullname}</span>
                 <span className="f6 db profile-cardUsername f-name2">@{username}</span>
             </div>
             <div class="flex profile-card">
@@ -153,7 +156,7 @@ const ProfileCard = ({ fullname, username, profileimg, editroute,id,country,regi
            
         </div>
 
-        <Row gutter={16} className="mt4 fw4 center">
+        <Row gutter={16} className="mt4 fw4 center pa3 ml2">
             <Col span={8}>
             <Statistic title="Polls" value={pollCount} />
             </Col>

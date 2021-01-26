@@ -1,8 +1,8 @@
 .right-side{
-    margin-left: 10%;
+    /* margin-left: 10%;
     border: 2px solid #f2f3f5;
     border-radius: .5rem;
-    border-top-left-radius: 0;
+    border-top-left-radius: 0; */
 }
 .feedtime{
     float: right;
@@ -18,6 +18,10 @@
 .feedtxt{
     font-size: 15.8px;
     word-wrap: break-word;
+}
+.feed-images{
+    border-radius: 30px;
+    overflow: hidden;
 }
 
 .feed-pp{

@@ -23,16 +23,16 @@ class AllstoreTemp extends React.Component{
         const {pages} = this.state
         return(
             <div>
-               <div className=" pa3 ml2 mt2 self-start">
+               <div className="pa3 ml2 mt2 self-start">
                <Link to="/createpage" className="tl button blue db pointer"><button>Create page</button></Link>
-               <a href="https://store.palscheck.com" className="tl button blue db pointer"><button>Store</button></a>
                </div>
                <div>
+                   <ul class="imglist">
                    {
                        pages.length > 0?
                        pages.map((page,i)=>{
                            return(
-                            <ul class="imglist">
+                            
                               <StoresCrd
                               key={i}
                               id={pages[i]._id}
@@ -41,13 +41,13 @@ class AllstoreTemp extends React.Component{
                               desc={pages[i].desc}
                               profileImg={pages[i].profileImg}
                               /> 
-                              </ul>
+                              
                            )
                        })
                        
                        :<p>no pages yet</p>
                    }
-                
+                </ul>
                </div>
             </div>
         )

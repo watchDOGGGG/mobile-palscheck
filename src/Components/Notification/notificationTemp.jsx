@@ -1,9 +1,12 @@
 import React, { useState,useEffect } from 'react'
 import {Avatar} from 'antd';
-import { UserOutlined,ShoppingFilled,HeartFilled,FundFilled } from '@ant-design/icons';
+import { UserOutlined,ShopOutlined,HeartFilled,FundFilled } from '@ant-design/icons';
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
 import { Link } from 'react-router-dom';
-
+import RandomString from 'randomstring'
+const Randstring  = RandomString.generate({
+  length:50
+})
 const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,notify_from,notify_for,viewed})=>{
   const [userInfo,setUserInfo] = useState([])
   const [userInfoFor,setUserInfoFor] = useState([])
@@ -113,7 +116,7 @@ const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,noti
           notify_action === 'following' ?
             // {/* notification from users action following*/}
             view === 0 && viewed === 0?
-            <li className="bb b--black-10">
+            <li className="bb b--black-10 bg-light-blue">
               <Link to={`${userInfo.username}.pal`}>
                 <div class="dt flex pa1">
                   <div class="dib ml2">
@@ -127,9 +130,9 @@ const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,noti
               </Link>
               {
                            viewed===0?
-                           <span className="bg-white ba b--black-10 pa1 grow" onClick={e=>UpdateNotify(id)}>
+                           <button className="bg-white ba b--black-10 pointer" onClick={e=>UpdateNotify(id)}>
                              mark as read
-                           </span>
+                           </button>
                            :
                           null
                          }
@@ -152,7 +155,7 @@ const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,noti
             view === 0 && viewed === 0?
               // {/* notification from users action comment*/}
               <li className="bb b--black-10 bg-light-blue">
-                <a href={`${addressFrom}.feed`}>
+                <a href={`title=${Randstring}/${addressFrom}.feed`}>
                   <div class="dt flex pa1">
                     <div class="dib">
                       {
@@ -176,16 +179,16 @@ const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,noti
                 </a>
                 {
                            viewed===0?
-                           <span className="bg-white ba b--black-10 pa1 grow" onClick={e=>UpdateNotify(id)}>
+                           <button className="bg-white ba b--black-10 pointer" onClick={e=>UpdateNotify(id)}>
                              mark as read
-                           </span>
+                           </button>
                            :
                           null
                          }
               </li>
               :
               <li className="bb b--black-10">
-                <a href={`${addressFrom}.feed`}>
+                <a href={`title=${Randstring}/${addressFrom}.feed`}>
                   <div class="dt flex pa1">
                     <div class="dib">
                       {
@@ -212,7 +215,7 @@ const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,noti
                 // {/* notification from users action love*/}
                 view === 0 && viewed === 0?
                 <li className="bb b--black-10  bg-light-blue">
-                  <a href={`${addressFrom}.feed`}>
+                  <a href={`title=${Randstring}/${addressFrom}.feed`}>
                     <div class="dt flex">
                       <div class="dib">
                       {
@@ -235,16 +238,16 @@ const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,noti
                   </a>
                   {
                            viewed===0?
-                           <span className="bg-white ba b--black-10 pa1 grow" onClick={e=>UpdateNotify(id)}>
+                           <button className="bg-white ba b--black-10 pointer" onClick={e=>UpdateNotify(id)}>
                              mark as read
-                           </span>
+                           </button>
                            :
                           null
                          }
                 </li>
                 :
                 <li className="bb b--black-10">
-                  <a href={`${addressFrom}.feed`}>
+                  <a href={`title=${Randstring}/${addressFrom}.feed`}>
                     <div class="dt flex">
                       <div class="dib">
                       {
@@ -277,9 +280,9 @@ const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,noti
                          </div>
                          {
                            viewed===0?
-                           <span className="bg-white ba b--black-10 pa1 grow" onClick={e=>UpdateNotify(id)}>
+                           <button className="bg-white ba b--black-10 pointer" onClick={e=>UpdateNotify(id)}>
                              mark as read
-                           </span>
+                           </button>
                            :
                           null
                          }
@@ -292,7 +295,32 @@ const NotificationTemp = ({addressFrom,notify_action,notify_content,date,id,noti
                            <span className="tl gray mr1">{time_ago(new Date(date))}</span>
                          </div>
                    </li>
-                   
+                    :notify_action === 'create-page' ?
+                    // {/* notification for creating page successfully*/}
+                    view === 0 && viewed === 0?
+                    <li className="bb b--black-10 bg-light-blue">
+                          <div class="dib ml2 ">
+                            <p class="lh-copy">{notify_content}</p>
+                            <span className="tl blue f4 mr1"><ShopOutlined /></span>
+                            <span className="tl gray mr1">{time_ago(new Date(date))}</span>
+                          </div>
+                          {
+                            viewed===0?
+                            <button className="bg-white ba b--black-10 pointer" onClick={e=>UpdateNotify(id)}>
+                              mark as read
+                            </button>
+                            :
+                           null
+                          }
+                    </li>
+                    :
+                    <li className="bb b--black-10">
+                          <div class="dib ml2 ">
+                            <p class="lh-copy">{notify_content}</p>
+                            <span className="tl blue f4 mr1"><ShopOutlined /></span>
+                            <span className="tl gray mr1">{time_ago(new Date(date))}</span>
+                          </div>
+                    </li>
                 : null
         }
 

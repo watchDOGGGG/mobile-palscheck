@@ -35,9 +35,7 @@ class Store extends React.Component{
         const response = await getLogginUser.json()
         this.setState({isLoggedIn:response.loggedIn})
     }
-    redirectTopage=(address)=>{
-        window.location.href = `https://store.palscheck.com/page/${address}`;
-    }
+
     render(){
         const {pageData,isLoggedIn} = this.state
         return(
@@ -54,9 +52,7 @@ class Store extends React.Component{
                         followtype={'page'}
                     />
                 </div>
-                <div className="storexpl">
-                <button class="f6 button-reset bg-blue ba b--black-10 pointer pv1 black-60 white" onClick={e=>this.redirectTopage(pageData.address)}>Explore</button>
-                </div>
+               
                 <div className="">
                     <StoreTemp 
                         id={pageData._id}
@@ -69,6 +65,7 @@ class Store extends React.Component{
                         phone = {pageData.phone}
                         country = {pageData.country}
                         region = {pageData.region}
+                        ProfileImage={pageData.profileImg}
                         loggedIn = {isLoggedIn}
                     />
                 </div>

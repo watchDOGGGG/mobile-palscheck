@@ -67,8 +67,6 @@ class PostArea extends React.Component {
     formData.set('txt',this.state.html)
     formData.set('feedby',this.props.id)
     formData.set('Feedtype',this.state.postType)
-    formData.set('price',this.state.price)
-    formData.set('desc',this.state.desc)
     for (let i = 0; i < fileList.length; i++) {
       formData.append('files', fileList[i].originFileObj);
      } 
@@ -83,7 +81,7 @@ class PostArea extends React.Component {
       body:formData
     })
     const response = await Sendpost.json()
-    if(response.msg){
+    if(response === 'success'){
       this.setState({fileList:[],uploading:false,html:''})
       this.props.UpdatePostModal(false)
     }else{
@@ -129,6 +127,7 @@ class PostArea extends React.Component {
     this.setState({ postType: evt })
   }
   render() {
+    
     //upload image btn
     const { previewVisible, previewImage, fileList, previewTitle,error} = this.state;
     const uploadButton = (
@@ -216,7 +215,7 @@ class PostArea extends React.Component {
                 </Upload>
               </div>
       
-                {fileList.length < 3 || this.state.html === ''?
+                {fileList.length < 1 || this.state.html === ''?
                 <Button
                 type="primary"
                 disabled

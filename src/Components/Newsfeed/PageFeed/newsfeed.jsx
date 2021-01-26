@@ -28,18 +28,19 @@ class NewsFeed extends React.Component{
         
         return(
 
-                <article class="newfeed--3-art center pa3 pa4-ns ba b--black-10">
-                <Tabs defaultActiveKey="1">
+                <article class="newfeed--3-art">
+                <Tabs defaultActiveKey="1" centered>
                     <TabPane tab="palsFeed" key="1">
                         <PagePostPannel
                         pagename={this.props.pagename}
                         id={this.props.id}
                         />
                         {
-                            this.state.Feeds.length === 0?
+                            this.state.Feeds.length < 1?
                                 <PageLoading/>:
                                 <NewsFeedCard
                                     AllFeeds={this.state.Feeds}
+                                    loggedIn={this.props.loggedIn}
                                 />
                         }
                         

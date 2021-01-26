@@ -73,7 +73,7 @@ class  SearchField extends React.Component{
         })
         return(
             <>
-            <div className="header-filter tl br3 center" style={this.state.filterStyle}>
+            <div className="header-filter tl br3 center mt4" style={this.state.filterStyle}>
                     <span className="f4 pointer"><SearchOutlined /></span>
                     <input value={Searchinput} onChange={e => this.onSearchchange(e)} className="ml2 black" style={this.state.filterBoxstyle} type="text" placeholder={'search on palscheck'} />
                 </div>

@@ -19,6 +19,7 @@ class Reaction extends React.Component{
         setInterval(() => {
             this.getReactCount()
         }, 1000);
+        
     }
    
     getReactCount = async()=>{
@@ -29,12 +30,13 @@ class Reaction extends React.Component{
         }
     }
     SendReact = async()=>{
-        const send_re3 = await fetch(`${localLink}/Feed/reaction`,{
+        console.log('click')
+        const send_re3 = await fetch(`${SeverLink}/Feed/reaction`,{
             method:'POST',
             headers:{'Content-Type':'application/json',token:localStorage.token},
             body: JSON.stringify({
                 feed_id:this.props.feed_id,
-                react_to:this.props.feed_by
+                react_to:this.props.feed_by,
             })
         })
         const response = await send_re3.json()
@@ -75,7 +77,7 @@ class Reaction extends React.Component{
                 <div style={style} className="dark-red unf33lke"><HeartFilled onClick={this.SendReact} />&nbsp;<span className="f6">{this.state.count}</span></div>
                 
             }
-                
+           
             </>
         )
     }
